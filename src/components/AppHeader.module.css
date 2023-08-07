@@ -1,4 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@500&family=Roboto:ital,wght@1,700&display=swap');
+
 .header {
   height: 60px;
+  width: 375px;
   background: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+
+  line-height: 21px;
+  color: hsla(0, 0%, 11%, 1);
+
+}
+
+.header div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+
+.header div img {
+  
+  height: 29px;
+}
+
+.header div * {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.header button {
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+
 }
