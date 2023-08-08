@@ -1,5 +1,10 @@
+import React, { ReactNode } from 'react';
 import styles from "./AppLayout.module.css";
 
-export const AppLayout = (props) => (
+interface AppLayoutProps {
+  children: ReactNode;
+}
+
+export const AppLayout = (props: AppLayoutProps) => (
   <div className={styles.layout}>{props.children}</div>
 );

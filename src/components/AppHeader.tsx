@@ -4,7 +4,8 @@ import logotype from "../assets/header_logo.svg";
 import button from "../assets/header_button.svg";
 
 
-export function AppHeader({ cardsNumber }){
+
+export function AppHeader({ cardsNumber }: {cardsNumber: number}){
 
   const [currentCardsNumber, setCurrentCardsNumber] = useState(cardsNumber || 0);
 
