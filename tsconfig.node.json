@@ -6,7 +6,5 @@
       "allowSyntheticDefaultImports": true,
       "jsx": "react"
     },
-    "include": [
-      "src/*.tsx",
-      "vite.config.ts"]
+    "include": ["src/**/*"],
   }
