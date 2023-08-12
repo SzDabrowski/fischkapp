@@ -1,44 +1,88 @@
-import styles from "Card.module.css";
-import { BigButton } from "./BigButton";
-import { SmallButton} from "./SmallButton";
-import { MouseEvent } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./Card.module.css";
+import deleteImage from "./assets/deleteIcon.svg";
+import { TextareaInput } from "./TextareaInput";
 
+interface FishkappCard {
+  question: string;
+  answer: string;
+}
+interface CardI {
+  editMode: boolean;
+  setEditMode: (value: boolean) => void;
+}
 
-export function Card (){
+export const Card = (props: CardI) => {
+  const [nextPage, setNextPage] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    let bCardSide : boolean = true;
-    //true - front
-    //false - back
+  const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
+    question: "",
+    answer: "",
+  });
 
-    
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target;
+    nextPage
+      ? setfishkappObject({ ...fishkappObject, answer: value })
+      : setfishkappObject({ ...fishkappObject, question: value });
+    event.target.style.height = "0px";
+    event.target.style.height = event.target.scrollHeight + "px";
+  };
 
-    if(bCardSide){
-        return (
-                <div onClick={() => {
-                    bCardSide = !bCardSide;
-                }}>
-                    <input type="text" />
-                    <BigButton colorToggle={false} onClick={function (event: MouseEvent<Element, MouseEvent>): void {
-                    throw new Error("Function not implemented.");
-                } }>
-                        Cancel
-                    </BigButton>
-                    <BigButton colorToggle={true}>
-                        Next
-                    </BigButton>
-                </div>
-            )
-        }
-        else
-        {
-            return(
-                <div>
-                    <SmallButton/>
-                    <h1></h1>
-                    <input></input>
+  const nextPageClick = () => {
+    setNextPage(true);
+    textareaRef.current?.focus();
+  };
+  const backPageClick = () => {
+    setNextPage(false);
+    textareaRef.current?.focus();
+  };
+  const cancelPageClick = () => {
+    props.setEditMode(!props.editMode);
+  };
 
-                </div>
-            )
-        }
-    )
+  return (
+    <div className={styles.container}>
+      <div className={styles.corner_wrapper}>
+        {nextPage ? (
+          <button className={styles.corner_button}>
+            <img src={deleteImage} alt="delete" />
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className={styles.text_wrapper}>
+        {nextPage && (
+          <p className={styles.question_text}>{fishkappObject.question}</p>
+        )}
+
+        <TextareaInput
+          fishkappObject={fishkappObject}
+          nextPage={nextPage}
+          handleInputChange={handleInputChange}
+          ref={textareaRef}
+        />
+      </div>
+      <div className={styles.action_wrapper}>
+        {nextPage ? (
+          <button onClick={backPageClick} className={styles.left_button}>
+            Back
+          </button>
+        ) : (
+          <button onClick={cancelPageClick} className={styles.left_button}>
+            Cancel
+          </button>
+        )}
+        {nextPage ? (
+          <button className={styles.right_button}>Save</button>
+        ) : (
+          <button onClick={nextPageClick} className={styles.right_button}>
+            Next
+          </button>
+        )}
+      </div>
+    </div>
+  );
 };
