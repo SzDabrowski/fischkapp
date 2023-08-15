@@ -8,6 +8,8 @@ export interface Header {
   changeMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+
+
 export function AppHeader(props: Header){
 
   return (<header className={styles.header}>

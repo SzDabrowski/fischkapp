@@ -1,14 +1,30 @@
 import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
-import {Card} from "./components/Card";
+import {NewCard} from "./components/NewCard";
+import React, { useState } from "react";
 
 import "./App.css";
-import React from "react";
 
 function App() {
+  const [editMode, setEditMode] = useState<boolean>(true);
+  const [cardList, setCardList] = useState<JSX.Element[]>([]); 
+
+  const changeMode = () => {
+    setEditMode(true);
+  };
+
+  const addCard = () => {
+    const newCard = <NewCard editMode={editMode} setEditMode={setEditMode} />;
+    setCardList([...cardList, newCard]); // Dodajemy nowy komponent Card do listy
+    console.log("added");
+  };
+
   return (
     <AppLayout>
-      <AppHeader cardsNumber = {1}/>
+      <AppHeader CurrentCardsNumber={cardList.length} changeMode={addCard} />
+      <div className="cardList_container">
+        {editMode ? cardList : null}
+      </div>
     </AppLayout>
   );
 }

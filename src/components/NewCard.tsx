@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./Card.module.css";
-import deleteImage from "./assets/deleteIcon.svg";
+import styles from "./NewCard.module.css";
+import deleteImage from "../assets/deleteIcon.svg";
 import { TextareaInput } from "./TextareaInput";
 
 interface FishkappCard {
@@ -12,7 +12,7 @@ interface CardI {
   setEditMode: (value: boolean) => void;
 }
 
-export const Card = (props: CardI) => {
+export const NewCard = (props: CardI) => {
   const [nextPage, setNextPage] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -41,6 +41,10 @@ export const Card = (props: CardI) => {
   const cancelPageClick = () => {
     props.setEditMode(!props.editMode);
   };
+
+  const savePageClick = () => {
+    props.setEditMode(false);
+  }
 
   return (
     <div className={styles.container}>
@@ -76,7 +80,7 @@ export const Card = (props: CardI) => {
           </button>
         )}
         {nextPage ? (
-          <button className={styles.right_button}>Save</button>
+          <button className={styles.right_button} onClick={savePageClick}>Save</button>
         ) : (
           <button onClick={nextPageClick} className={styles.right_button}>
             Next
