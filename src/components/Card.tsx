@@ -1,86 +1,59 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Card.module.css";
-import deleteImage from "./assets/deleteIcon.svg";
-import { TextareaInput } from "./TextareaInput";
+import editIcon from "../assets/editIcon.svg";
+
 
 interface FishkappCard {
   question: string;
   answer: string;
 }
+
 interface CardI {
-  editMode: boolean;
-  setEditMode: (value: boolean) => void;
+    id: number;
+    question: string;
+    answer: string;
 }
 
 export const Card = (props: CardI) => {
-  const [nextPage, setNextPage] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [nextPage, setNextPage] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [height, setHeight] = useState<number>(60);
+  
+    const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
+      question: props.question ? props.question : "",
+      answer: props.answer ? props.answer : "",
+    });
 
-  const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
-    question: "",
-    answer: "",
-  });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = event.target;
-    nextPage
-      ? setfishkappObject({ ...fishkappObject, answer: value })
-      : setfishkappObject({ ...fishkappObject, question: value });
-    event.target.style.height = "0px";
-    event.target.style.height = event.target.scrollHeight + "px";
-  };
-
-  const nextPageClick = () => {
-    setNextPage(true);
+  const changePageClick = () => {
+    setNextPage(!nextPage);
     textareaRef.current?.focus();
-  };
-  const backPageClick = () => {
-    setNextPage(false);
-    textareaRef.current?.focus();
-  };
-  const cancelPageClick = () => {
-    props.setEditMode(!props.editMode);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.corner_wrapper}>
-        {nextPage ? (
-          <button className={styles.corner_button}>
-            <img src={deleteImage} alt="delete" />
-          </button>
-        ) : (
-          <></>
-        )}
+                <button className={styles.corner_button}>
+                    <img src={editIcon} alt="edit" />
+                </button>
       </div>
-      <div className={styles.text_wrapper}>
-        {nextPage && (
-          <p className={styles.question_text}>{fishkappObject.question}</p>
-        )}
 
-        <TextareaInput
-          fishkappObject={fishkappObject}
-          nextPage={nextPage}
-          handleInputChange={handleInputChange}
-          ref={textareaRef}
-        />
-      </div>
-      <div className={styles.action_wrapper}>
+      <div className={styles.text_wrapper} onClick={changePageClick}>
         {nextPage ? (
-          <button onClick={backPageClick} className={styles.left_button}>
-            Back
-          </button>
-        ) : (
-          <button onClick={cancelPageClick} className={styles.left_button}>
-            Cancel
-          </button>
-        )}
-        {nextPage ? (
-          <button className={styles.right_button}>Save</button>
-        ) : (
-          <button onClick={nextPageClick} className={styles.right_button}>
-            Next
-          </button>
+            <textarea
+            readOnly
+            className={styles.output}
+            value={fishkappObject.answer}
+            style={{ height: height + "px" }}
+            />
+        ):
+        (
+            <textarea
+            readOnly
+            className={styles.output}
+            value={fishkappObject.question}
+            style={{ height: height + "px" }}
+            />
         )}
       </div>
     </div>
