@@ -5,9 +5,40 @@ import React, { useState } from "react";
 
 import "./App.css";
 
+interface iCard{
+  id: number,
+  question: string,
+  answer: string,
+}
+
 function App() {
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [cardList, setCardList] = useState<JSX.Element[]>([]); 
+  const [cardsData, setCardsData] = useState<iCard[]>([
+    {
+      id: 1,
+      question: "How do you write comment in JS?",
+      answer:
+        "its //comment",
+    },
+    {
+      id: 2,
+      question: "How do you write comment in JS?",
+      answer:
+        "its //comment",
+    },
+    {
+      id: 3,
+      question: "How do you write comment in JS?",
+      answer:
+        "its //comment",
+    },
+    {
+      id: 4,
+      question: "How do you write comment in JS?",
+      answer:
+        "its //comment",
+    }
+  ])
 
   const changeMode = () => {
     setEditMode(true);
@@ -21,9 +52,18 @@ function App() {
 
   return (
     <AppLayout>
-      <AppHeader CurrentCardsNumber={cardList.length} changeMode={addCard} />
+      <AppHeader currentCardsNumber={cardList.length} changeMode={addCard} />
       <div className="cardList_container">
-        {editMode ? cardList : null}
+       
+      <NewCard editMode={editMode} setEditMode={setEditMode} />
+        {cards.length > 0 && (
+            {cards.map(card => (
+              
+
+              />
+            ))})}
+          </>
+
       </div>
     </AppLayout>
   );
