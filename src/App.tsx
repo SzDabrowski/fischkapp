@@ -1,6 +1,7 @@
 import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import {NewCard} from "./components/NewCard";
+import {Card} from "./components/Card";
 import React, { useState } from "react";
 
 import "./App.css";
@@ -12,7 +13,7 @@ interface iCard{
 }
 
 function App() {
-  const [editMode, setEditMode] = useState<boolean>(true);
+  const [editMode, setEditMode] = useState<boolean>(false);
   const [cardsData, setCardsData] = useState<iCard[]>([
     {
       id: 1,
@@ -46,24 +47,27 @@ function App() {
 
   const addCard = () => {
     const newCard = <NewCard editMode={editMode} setEditMode={setEditMode} />;
-    setCardList([...cardList, newCard]); // Dodajemy nowy komponent Card do listy
+
     console.log("added");
   };
 
   return (
     <AppLayout>
-      <AppHeader currentCardsNumber={cardList.length} changeMode={addCard} />
+      <AppHeader currentCardsNumber={cardsData.length} changeMode={addCard} />
       <div className="cardList_container">
        
       <NewCard editMode={editMode} setEditMode={setEditMode} />
-        {cards.length > 0 && (
-            {cards.map(card => (
-              
-
-              />
-            ))})}
+        {cardsData.length > 0 && (
+          <>
+          {cardsData.map(card => (
+            <Card
+            id = {card.id}
+            question ={card.question}
+            answer = {card.answer}
+            />
+            ))}
           </>
-
+          )}
       </div>
     </AppLayout>
   );
