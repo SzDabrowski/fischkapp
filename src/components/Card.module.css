@@ -10,8 +10,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
-.corner_wrapper {
+  .corner_wrapper {
     display: flex;
     flex-direction: row;
     width: 343px;
@@ -26,32 +25,50 @@
     height: 40px;
     cursor: pointer;
   }
-
-.text_wrapper {
-  position: relative;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.output {
-  text-align: center;
-  justify-content: center;
-
-  border: none;
-  color: #161616;
-  font-size: 16px;
-  width: 315px;
-  font-weight: 500;
-  resize: none;
-  overflow: hidden;
-  line-height: 20px;
-  overflow-wrap: break-word;
-  padding: 12px 10px 10px 10px;
-  &:focus {
-    outline: none;
+  .text_wrapper {
+    position: relative;
   }
-}
+  .question_text {
+    position: relative;
+    bottom: 0;
+    color: #161616;
+    font-size: 12px;
+    font-family: Lexend;
+    max-width: 300px;
+    font-weight: 400;
+    word-wrap: break-word;
+    margin: 0 15px 0;
+  }
+  .action_wrapper {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-self: end;
+    gap: 10px;
+    bottom: 14px;
+    right: 14px;
+  }
+  .left_button {
+    width: 110px;
+    height: 38px;
+    padding: 10px, 12px, 10px, 12px;
+    border: none;
+    border-radius: 22px;
+    background-color: #ffffff;
+    line-height: 18px;
+    word-wrap: break-word;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .right_button {
+    width: 110px;
+    height: 38px;
+    border: none;
+    border-radius: 22px;
+    background-color: #161616;
+    color: white;
+    line-height: 18px;
+    word-wrap: break-word;
+    font-weight: 500;
+    cursor: pointer;
+  }
