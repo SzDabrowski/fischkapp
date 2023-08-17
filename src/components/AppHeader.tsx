@@ -4,9 +4,11 @@ import logotype from "../assets/header_logo.svg";
 import button from "../assets/header_button.svg";
 
 export interface Header {
-  CurrentCardsNumber: number;
+  currentCardsNumber: number;
   changeMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
+
 
 export function AppHeader(props: Header){
 
@@ -14,7 +16,7 @@ export function AppHeader(props: Header){
     <div>
         <img src={logotype} alt={"logo"} />
         <h1 className="header">Cards:</h1>
-        <span className="cardsNumber">{props.CurrentCardsNumber}</span>
+        <span className="cardsNumber">{props.currentCardsNumber}</span>
     </div >
      <button className="addButton" onClick={props.changeMode}>
       <img src={button} alt={"add card button"} />
