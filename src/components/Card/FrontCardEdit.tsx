@@ -64,7 +64,7 @@ export const FrontCardEdit = (props: CardI) => {
             <div className={styles.action_wrapper}>
 
                 <button onClick={backPageClick} className={styles.left_button}>
-                   Cancel
+                    Cancel
                 </button>
                 
                 <button className={styles.right_button} onClick={savePageClick}>Save</button>

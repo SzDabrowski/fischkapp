@@ -8,8 +8,8 @@ interface FishkappCard {
   answer: string;
 }
 interface CardI {
-  editMode: boolean;
-  setEditMode: (value: boolean) => void;
+  saveNewCard:(card: FishkappCard) => void;
+  deleteNewCard: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const NewCard = (props: CardI) => {
@@ -38,19 +38,17 @@ export const NewCard = (props: CardI) => {
     setNextPage(false);
     textareaRef.current?.focus();
   };
-  const cancelPageClick = () => {
-    props.setEditMode(!props.editMode);
+  
+  const saveNewCard = () => {
+    props.saveNewCard(fishkappObject);
   };
 
-  const savePageClick = () => {
-    props.setEditMode(false);
-  }
 
   return (
     <div className={styles.container}>
       <div className={styles.corner_wrapper}>
         {nextPage ? (
-          <button className={styles.corner_button}>
+          <button className={styles.corner_button} onClick={props.deleteNewCard}>
             <img src={deleteImage} alt="delete" />
           </button>
         ) : (
@@ -75,12 +73,14 @@ export const NewCard = (props: CardI) => {
             Back
           </button>
         ) : (
-          <button onClick={cancelPageClick} className={styles.left_button}>
+          <button onClick={props.deleteNewCard} className={styles.left_button}>
             Cancel
           </button>
         )}
         {nextPage ? (
-          <button className={styles.right_button} onClick={savePageClick}>Save</button>
+          <button className={styles.right_button} onClick={saveNewCard}>
+            Save
+          </button>
         ) : (
           <button onClick={nextPageClick} className={styles.right_button}>
             Next
