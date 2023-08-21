@@ -34,7 +34,7 @@ export const Card = (props: CardI) => {
     textareaRef.current?.focus();
   };
 
-  const EditPageClick = () => {
+  const editPageClick = () => {
     props.setEditMode(true);
     console.log(props.editMode);
   };
@@ -45,7 +45,7 @@ export const Card = (props: CardI) => {
         <></>
       ) : (
         <div className={styles.corner_wrapper}>
-                <button className={styles.corner_button} onClick={EditPageClick}>
+                <button className={styles.corner_button} onClick={editPageClick}>
                     <img src={editIcon} alt="edit" />
                 </button>
       </div>
@@ -56,7 +56,7 @@ export const Card = (props: CardI) => {
     {nextPage ? (
       // Rendering based on nextPage condition
       props.editMode ? (
-        <BackCardEdit editMode={props.editMode} setEditMode={EditPageClick}/>
+        <BackCardEdit editMode={props.editMode} setEditMode={editPageClick}/>
       ) : (
         <textarea
           readOnly
@@ -68,7 +68,7 @@ export const Card = (props: CardI) => {
     ) : (
       // Rendering when nextPage condition is false
       props.editMode ? (
-        <BackCardEdit editMode={props.editMode} setEditMode={EditPageClick}/>
+        <BackCardEdit editMode={props.editMode} setEditMode={editPageClick}/>
       ) : (
         <textarea
           readOnly

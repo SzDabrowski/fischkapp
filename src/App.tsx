@@ -6,6 +6,10 @@ import React, { useState } from "react";
 
 import "./App.css";
 
+interface FishkappCard {
+  question: string;
+  answer: string;
+}
 
 interface iCard{
   id: number,
@@ -52,7 +56,7 @@ function App() {
     setDisplayNewCard(true);
   };
 
-  const saveCard = ( card: any) => {
+  const saveCard = ( card: FishkappCard) => {
     const newCardObject = {
       id: cardsData.length+1,
       question: card.question,
