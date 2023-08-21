@@ -5,7 +5,7 @@ import button from "../assets/header_button.svg";
 
 export interface Header {
   currentCardsNumber: number;
-  changeMode: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  addCard: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 
@@ -18,7 +18,7 @@ export function AppHeader(props: Header){
         <h1 className="header">Cards:</h1>
         <span className="cardsNumber">{props.currentCardsNumber}</span>
     </div >
-     <button className="addButton" onClick={props.changeMode}>
+     <button className="addButton" onClick={props.addCard}>
       <img src={button} alt={"add card button"} />
       </button>
 

@@ -45,7 +45,7 @@ export const Card = (props: CardI) => {
         <></>
       ) : (
         <div className={styles.corner_wrapper}>
-                <button className={styles.corner_button} onClick={props.setEditMode}>
+                <button className={styles.corner_button} onClick={EditPageClick}>
                     <img src={editIcon} alt="edit" />
                 </button>
       </div>

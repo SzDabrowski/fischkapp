@@ -6,6 +6,7 @@ import React, { useState } from "react";
 
 import "./App.css";
 
+
 interface iCard{
   id: number,
   question: string,
@@ -13,11 +14,12 @@ interface iCard{
 }
 
 function App() {
+  const [displayNewCard, setDisplayNewCard] = useState<boolean>(false)
   const [editMode, setEditMode] = useState<boolean>(false);
   const [cardsData, setCardsData] = useState<iCard[]>([
     {
       id: 1,
-      question: "How do you write comment in JS?",
+      question: "1:How do you write comment in JS?",
       answer:
         "its //comment",
     },
@@ -47,17 +49,33 @@ function App() {
   };
 
   const addCard = () => {
-    const newCard = <NewCard editMode={editMode} setEditMode={setEditMode} />;
+    setDisplayNewCard(true);
+  };
 
-    console.log("added");
+  const saveCard = ( card: any) => {
+    const newCardObject = {
+      id: cardsData.length+1,
+      question: card.question,
+      answer: card.answer
+    }
+
+    setCardsData([...cardsData, newCardObject]);
+    setDisplayNewCard(false);
   };
 
   return (
     <AppLayout>
-      <AppHeader currentCardsNumber={cardsData.length} changeMode={addCard} />
+      <AppHeader currentCardsNumber={cardsData.length} addCard={addCard} />
+
       <div className="cardList_container">
        
-      <NewCard editMode={editMode} setEditMode={setEditMode} />
+       {displayNewCard ? (
+        <NewCard  
+
+        deleteNewCard={() => {setDisplayNewCard(false)}} 
+        saveNewCard={saveCard} />
+       ):(<></>)}
+      
         {cardsData.length > 0 && (
           <>
           {cardsData.map(card => (
@@ -65,7 +83,7 @@ function App() {
             id = {card.id}
             question ={card.question}
             answer = {card.answer}
-            editMode = {true}
+            editMode = {false}
             setEditMode={changeMode}
             />
             ))}
