@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./NewCard.module.css";
-import deleteImage from "../assets/deleteIcon.svg";
-import { TextareaInput } from "./TextareaInput";
+import deleteImage from "../../assets/deleteIcon.svg";
+import { TextareaInput } from "../TextareaInput";
 
 interface FishkappCard {
   question: string;

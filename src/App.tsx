@@ -1,7 +1,7 @@
 import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
-import {NewCard} from "./components/NewCard";
-import {Card} from "./components/Card";
+import {NewCard} from "./components/Card/NewCard";
+import {Card} from "./components/Card/Card";
 import React, { useState } from "react";
 
 import "./App.css";
@@ -43,6 +43,7 @@ function App() {
 
   const changeMode = () => {
     setEditMode(true);
+    console.log(editMode);  
   };
 
   const addCard = () => {
@@ -64,6 +65,8 @@ function App() {
             id = {card.id}
             question ={card.question}
             answer = {card.answer}
+            editMode = {true}
+            setEditMode={changeMode}
             />
             ))}
           </>
