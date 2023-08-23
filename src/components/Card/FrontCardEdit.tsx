@@ -13,6 +13,7 @@ interface CardI {
     editMode: boolean;
     updateCard: (id: number, cardSide: string, input: string) => void;
     setEditMode: (value: boolean) => void;
+    deleteCard: (id:number) => void;
 }
 
 export const FrontCardEdit = (props: CardI) => {
@@ -41,10 +42,15 @@ export const FrontCardEdit = (props: CardI) => {
         props.setEditMode(false);
       }
 
+      const deleteCard = () => {
+        props.deleteCard(props.id);
+        props.setEditMode(false);
+      }
+
     return (
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
-                <button className={styles.corner_button}>
+                <button className={styles.corner_button} onClick={deleteCard}>
                      <img src={deleteImage} alt="delete" />
                 </button>
             </div>
@@ -54,7 +60,6 @@ export const FrontCardEdit = (props: CardI) => {
                     <TextareaInput
                     fishkappObject={fishkappObject}
                     nextPage={false}
-                    //value = {}
                     handleInputChange={handleInputChange}
                     ref={textareaRef}
                     />
