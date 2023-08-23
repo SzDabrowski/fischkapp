@@ -9,12 +9,14 @@ interface FishkappCard {
 }
 
 interface CardI {
+    id: number;
     editMode: boolean;
     setEditMode: (value: boolean) => void;
+    updateCard: (id: number, cardSide: string, input: string) => void;
+    question: string;
 }
 
 export const BackCardEdit = (props: CardI) => {
-    const [nextPage, setNextPage] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
@@ -24,20 +26,20 @@ export const BackCardEdit = (props: CardI) => {
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
-        nextPage
-          ? setfishkappObject({ ...fishkappObject, answer: value })
-          : setfishkappObject({ ...fishkappObject, question: value });
+        setfishkappObject({ ...fishkappObject, answer: value });
         event.target.style.height = "0px";
         event.target.style.height = event.target.scrollHeight + "px";
       };
     
-      const savePageClick = () => {
-        props.setEditMode(false);
+      const updateCard = () => {
+        props.updateCard(props.id, 'answer',fishkappObject.answer);
       }
 
       const cancelPageClick = () => {
         props.setEditMode(!props.editMode);
       };
+
+      
 
     return (
         <div className={styles.container}>
@@ -49,9 +51,11 @@ export const BackCardEdit = (props: CardI) => {
 
             <div className={styles.text_wrapper}>
 
+            <p className={styles.question_text}>{props.question}</p>
+
                     <TextareaInput
                     fishkappObject={fishkappObject}
-                    nextPage={nextPage}
+                    nextPage={true}
                     handleInputChange={handleInputChange}
                     ref={textareaRef}
                     />
@@ -63,7 +67,7 @@ export const BackCardEdit = (props: CardI) => {
                     Cancel
                 </button>
                 
-                <button className={styles.right_button} onClick={savePageClick}>Save</button>
+                <button className={styles.right_button} onClick={updateCard}>Save</button>
             
             </div>
         </div>

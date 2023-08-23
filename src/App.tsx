@@ -47,10 +47,7 @@ function App() {
     }
   ])
 
-  const changeMode = () => {
-    setEditMode(true);
-    console.log(editMode);  
-  };
+  
 
   const addCard = () => {
     setDisplayNewCard(true);
@@ -66,6 +63,28 @@ function App() {
     setCardsData([...cardsData, newCardObject]);
     setDisplayNewCard(false);
   };
+
+  const updateCard = (id: number, cardSide: string, input: string) => {
+    const updateCard = cardsData.map((card) => {
+      if (card.id === id) {
+        switch(cardSide){
+          case "front": {
+            return { ...card, question: input }
+          }
+          case "back": {
+            return { ...card, answer: input };
+          }}
+      }
+      console.log(card);
+      return card
+    });
+
+    const data = updateCard;
+
+    console.log(data);
+    
+    //setCardsData();
+    }
 
   return (
     <AppLayout>
@@ -87,8 +106,8 @@ function App() {
             id = {card.id}
             question ={card.question}
             answer = {card.answer}
-            editMode = {false}
-            setEditMode={changeMode}
+            editMode={false}
+            updateCard={updateCard}
             />
             ))}
           </>
