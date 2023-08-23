@@ -47,10 +47,7 @@ function App() {
     }
   ])
 
-  const changeMode = () => {
-    setEditMode(true);
-    console.log(editMode);  
-  };
+  
 
   const addCard = () => {
     setDisplayNewCard(true);
@@ -66,6 +63,22 @@ function App() {
     setCardsData([...cardsData, newCardObject]);
     setDisplayNewCard(false);
   };
+
+  const updateCard = (id: number, cardSide: string, input: string) => {
+    const updateCard = cardsData.map((card) => {
+      if (card.id === id) {
+        return { ...card, [cardSide]: input }
+      }
+      return card
+    });
+    setCardsData(updateCard);
+    }
+    
+  const deleteCard = (id: number) => {
+    const cardIndex = cardsData.findIndex((card) => card.id === id);
+    cardsData.splice(cardIndex, 1);
+    setCardsData([...cardsData]);
+  }
 
   return (
     <AppLayout>
@@ -87,8 +100,9 @@ function App() {
             id = {card.id}
             question ={card.question}
             answer = {card.answer}
-            editMode = {false}
-            setEditMode={changeMode}
+            editMode={false}
+            updateCard={updateCard}
+            deleteCard={deleteCard}
             />
             ))}
           </>
