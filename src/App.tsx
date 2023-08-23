@@ -88,19 +88,19 @@ function App() {
         saveNewCard={saveCard} />
        ):(<></>)}
       
-        {cardsData.length > 0 && (
-          <>
-          {cardsData.map(card => (
-            <Card
-            id = {card.id}
-            question ={card.question}
-            answer = {card.answer}
-            editMode={false}
-            updateCard={updateCard}
-            />
-            ))}
-          </>
-          )}
+          {cardsData.length > 0 && (
+            <>
+            {cardsData.map(card => (
+              <Card
+              id = {card.id}
+              question ={card.question}
+              answer = {card.answer}
+              editMode={false}
+              updateCard={updateCard}
+              />
+              ))}
+            </>
+            )}
       </div>
     </AppLayout>
   );
