@@ -33,6 +33,7 @@ export const BackCardEdit = (props: CardI) => {
     
       const updateCard = () => {
         props.updateCard(props.id, 'answer',fishkappObject.answer);
+        props.setEditMode(false);
       }
 
       const cancelPageClick = () => {

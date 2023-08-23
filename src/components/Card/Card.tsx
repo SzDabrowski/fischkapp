@@ -54,7 +54,9 @@ export const Card = (props: CardI) => {
           editMode={editMode} 
           setEditMode={editPageClick} />
       ) : (
-        <FrontCardEdit id = {props.id} editMode={editMode} setEditMode={editPageClick} updateCard={props.updateCard}/>
+        <FrontCardEdit id = {props.id} editMode={editMode} 
+        setEditMode={editPageClick} 
+        updateCard={props.updateCard}/>
       )
     ) : (
       <div className={styles.container}>
