@@ -67,23 +67,12 @@ function App() {
   const updateCard = (id: number, cardSide: string, input: string) => {
     const updateCard = cardsData.map((card) => {
       if (card.id === id) {
-        switch(cardSide){
-          case "front": {
-            return { ...card, question: input }
-          }
-          case "back": {
-            return { ...card, answer: input };
-          }}
+        return { ...card, cardSide: input }
       }
-      console.log(card);
       return card
     });
-
-    const data = updateCard;
-
-    console.log(data);
     
-    //setCardsData();
+    setCardsData(updateCard);
     }
 
   return (
