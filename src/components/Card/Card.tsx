@@ -39,10 +39,6 @@ export const Card = (props: CardI) => {
     setEditMode(!editMode);
   };
 
-  const updateCard = (cardSide: string, input: string) => {
-    props.updateCard(props.id, cardSide, input);
-    editPageClick();
-  }
 
   return (
     editMode ? (
