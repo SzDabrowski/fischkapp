@@ -69,6 +69,7 @@ export const Card = (props: CardI) => {
             value= {fishkappObject.answer}
             changePageClick = {changePageClick}
             editPageClick = {editPageClick}
+            nextPage = {nextPage}
             />
           ) : (
             <CardSide
@@ -77,6 +78,7 @@ export const Card = (props: CardI) => {
             value= {fishkappObject.question}
             changePageClick = {changePageClick}
             editPageClick = {editPageClick}
+            nextPage = {nextPage}
             />
           )
     ))};
