@@ -2,7 +2,7 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import {NewCard} from "./components/Card/NewCard";
 import {Card} from "./components/Card/Card";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 
@@ -64,17 +64,16 @@ function App() {
     setDisplayNewCard(false);
   };
 
-  const updateCard = (id: number, cardSide: string, input: string) => {
-    const updateCards = cardsData.map((card) => {
+  const updateCards = (id: number, cardSide: string, input: string) => {
+    const updateCard = cardsData.map((card) => {
       if (card.id === id) {
         return { ...card, [cardSide]: input }
       }
       return card
     });
-    
-    setCardsData(updateCards);
-    
+    setCardsData(updateCard);  
     }
+
 
   return (
     <AppLayout>
@@ -97,7 +96,7 @@ function App() {
             question ={card.question}
             answer = {card.answer}
             editMode={false}
-            updateCard={updateCard}
+            updateCard={updateCards}
             />
             ))}
           </>
