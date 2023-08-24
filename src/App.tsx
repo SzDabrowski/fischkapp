@@ -65,14 +65,15 @@ function App() {
   };
 
   const updateCard = (id: number, cardSide: string, input: string) => {
-    const updateCard = cardsData.map((card) => {
+    const updateCards = cardsData.map((card) => {
       if (card.id === id) {
-        return { ...card, cardSide: input }
+        return { ...card, [cardSide]: input }
       }
       return card
     });
     
-    setCardsData(updateCard);
+    setCardsData(updateCards);
+    
     }
 
   return (
