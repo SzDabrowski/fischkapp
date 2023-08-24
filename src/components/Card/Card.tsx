@@ -15,13 +15,11 @@ interface CardI {
     question: string;
     answer: string;
     editMode: boolean;
-    updateCard: (id:number, cardSide: string, input: string) => void;
-    deleteCard: (id:number) => void;
+    setEditMode: (value: boolean) => void;
 }
 
 export const Card = (props: CardI) => {
     const [nextPage, setNextPage] = useState(false);
-    const [editMode,setEditMode] = useState(props.editMode);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [height, setHeight] = useState<number>(60);
   
@@ -37,57 +35,52 @@ export const Card = (props: CardI) => {
   };
 
   const editPageClick = () => {
-    setEditMode(!editMode);
+    props.setEditMode(true);
+    console.log(props.editMode);
   };
 
-  const updateCard = (cardSide: string, input: string) => {
-    props.updateCard(props.id, cardSide, input);
-    editPageClick();
-  }
-
   return (
-    editMode ? (
-      nextPage ? (
-        <BackCardEdit
-          id = {props.id}
-          updateCard={props.updateCard}
-          question={fishkappObject.question} 
-          editMode={editMode} 
-          setEditMode={editPageClick}
-          deleteCard={props.deleteCard}
-          />
+    <div className={styles.container}>
+      {props.editMode? (
+        <></>
       ) : (
-        <FrontCardEdit 
-        id = {props.id} 
-        editMode={editMode} 
-        setEditMode={editPageClick} 
-        updateCard={props.updateCard}
-        deleteCard={props.deleteCard}/>
+        <div className={styles.corner_wrapper}>
+                <button className={styles.corner_button} onClick={editPageClick}>
+                    <img src={editIcon} alt="edit" />
+                </button>
+      </div>
+      )   
+    }
+
+  <div className={styles.text_wrapper} onClick={changePageClick}>
+    {nextPage ? (
+      // Rendering based on nextPage condition
+      props.editMode ? (
+        <BackCardEdit editMode={props.editMode} setEditMode={editPageClick}/>
+      ) : (
+        <textarea
+          readOnly
+          className={styles.output}
+          value={fishkappObject.answer}
+          style={{ height: height + "px" }}
+        />
       )
     ) : (
-      <div className={styles.container}>
-        <div className={styles.corner_wrapper}>
-          <button className={styles.corner_button} onClick={editPageClick}>
-            <img src={editIcon} alt="edit" />
-          </button>
-        </div>
-    
-        <div className={styles.text_wrapper} onClick={changePageClick}>
-          {nextPage ? (
-            <textarea
-              readOnly
-              className={styles.output}
-              value={fishkappObject.answer}
-              style={{ height: height + "px" }}
-            />
-          ) : (
-            <textarea
-              readOnly
-              className={styles.output}
-              value={fishkappObject.question}
-              style={{ height: height + "px" }}
-            />
-          )}
-        </div>
-      </div>
-    ))};
+      // Rendering when nextPage condition is false
+      props.editMode ? (
+        <BackCardEdit editMode={props.editMode} setEditMode={editPageClick}/>
+      ) : (
+        <textarea
+          readOnly
+          className={styles.output}
+          value={fishkappObject.question}
+          style={{ height: height + "px" }}
+        />
+      )
+    )}
+  </div>
+
+      
+  </div>
+  );
+};

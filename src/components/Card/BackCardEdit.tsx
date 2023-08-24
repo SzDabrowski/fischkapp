@@ -9,15 +9,12 @@ interface FishkappCard {
 }
 
 interface CardI {
-    id: number;
     editMode: boolean;
     setEditMode: (value: boolean) => void;
-    updateCard: (id: number, cardSide: string, input: string) => void;
-    deleteCard: (id:number) => void;
-    question: string;
 }
 
 export const BackCardEdit = (props: CardI) => {
+    const [nextPage, setNextPage] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
@@ -27,13 +24,14 @@ export const BackCardEdit = (props: CardI) => {
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
-        setfishkappObject({ ...fishkappObject, answer: value });
+        nextPage
+          ? setfishkappObject({ ...fishkappObject, answer: value })
+          : setfishkappObject({ ...fishkappObject, question: value });
         event.target.style.height = "0px";
         event.target.style.height = event.target.scrollHeight + "px";
       };
     
-      const updateCard = () => {
-        props.updateCard(props.id, 'answer',fishkappObject.answer);
+      const savePageClick = () => {
         props.setEditMode(false);
       }
 
@@ -41,26 +39,19 @@ export const BackCardEdit = (props: CardI) => {
         props.setEditMode(!props.editMode);
       };
 
-      const deleteCard = () => {
-        props.deleteCard(props.id);
-        props.setEditMode(false);
-      }
-
     return (
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
                 <button className={styles.corner_button}>
-                     <img src={deleteImage} alt="delete" onClick={deleteCard} />
+                     <img src={deleteImage} alt="delete" />
                 </button>
             </div>
 
             <div className={styles.text_wrapper}>
 
-            <p className={styles.question_text}>{props.question}</p>
-
                     <TextareaInput
                     fishkappObject={fishkappObject}
-                    nextPage={true}
+                    nextPage={nextPage}
                     handleInputChange={handleInputChange}
                     ref={textareaRef}
                     />
@@ -72,7 +63,7 @@ export const BackCardEdit = (props: CardI) => {
                     Cancel
                 </button>
                 
-                <button className={styles.right_button} onClick={updateCard}>Save</button>
+                <button className={styles.right_button} onClick={savePageClick}>Save</button>
             
             </div>
         </div>
