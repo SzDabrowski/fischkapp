@@ -102,7 +102,6 @@ function App() {
             answer = {card.answer}
             editMode={false}
             updateCard={updateCard}
-            deleteCard={deleteCard}
             />
             ))}
           </>

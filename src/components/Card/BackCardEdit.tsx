@@ -13,7 +13,7 @@ interface CardI {
     editMode: boolean;
     setEditMode: (value: boolean) => void;
     updateCard: (id: number, cardSide: string, input: string) => void;
-    deleteCard: (id:number) => void;
+
     question: string;
 }
 
@@ -42,7 +42,6 @@ export const BackCardEdit = (props: CardI) => {
       };
 
       const deleteCard = () => {
-        props.deleteCard(props.id);
         props.setEditMode(false);
       }
 
