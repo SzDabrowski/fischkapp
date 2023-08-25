@@ -41,15 +41,12 @@ export const BackCardEdit = (props: CardI) => {
         props.setEditMode(!props.editMode);
       };
 
-      const deleteCard = () => {
-        props.setEditMode(false);
-      }
 
     return (
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
                 <button className={styles.corner_button}>
-                     <img src={deleteImage} alt="delete" onClick={deleteCard} />
+                     <img src={deleteImage} alt="delete" />
                 </button>
             </div>
 
