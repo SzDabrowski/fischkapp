@@ -3,6 +3,7 @@ import styles from "./Card.module.css";
 import editIcon from "../../assets/editIcon.svg";
 import { FrontCardEdit } from "./FrontCardEdit";
 import { BackCardEdit } from "./BackCardEdit";
+import { CardSide } from "./CardSide";
 
 
 interface FishkappCard {
@@ -16,7 +17,6 @@ interface CardI {
     answer: string;
     editMode: boolean;
     updateCard: (id:number, cardSide: string, input: string) => void;
-    deleteCard: (id:number) => void;
 }
 
 export const Card = (props: CardI) => {
@@ -42,8 +42,14 @@ export const Card = (props: CardI) => {
   const editPageClick = () => {
     setEditMode(!editMode);
   };
-  
-  
+
+
+  const updateCard = (cardSide: string, input: string) => {
+    props.updateCard(props.id, cardSide, input);
+    console
+    editPageClick();
+  }
+    
   return (
     editMode ? (
       nextPage ? (
@@ -52,41 +58,31 @@ export const Card = (props: CardI) => {
           updateCard={props.updateCard}
           question={fishkappObject.question} 
           editMode={editMode} 
-          setEditMode={editPageClick}
-          deleteCard={props.deleteCard}
-          />
+          setEditMode={editPageClick} />
       ) : (
-        <FrontCardEdit 
-        id = {props.id} 
-        editMode={editMode} 
+        <FrontCardEdit id = {props.id} editMode={editMode} 
         setEditMode={editPageClick} 
-        updateCard={props.updateCard}
-        deleteCard={props.deleteCard}/>
+        updateCard={props.updateCard}/>
       )
     ) : (
-      <div className={styles.container}>
-        <div className={styles.corner_wrapper}>
-          <button className={styles.corner_button} onClick={editPageClick}>
-            <img src={editIcon} alt="edit" />
-          </button>
-        </div>
-    
-        <div className={styles.text_wrapper} onClick={changePageClick}>
-          {nextPage ? (
-            <textarea
-              readOnly
-              className={styles.output}
-              value={fishkappObject.answer}
-              style={{ height: height + "px" }}
+      
+          nextPage ? (
+            <CardSide
+            sideName= {styles.back}
+            editMode= {editMode}
+            value= {fishkappObject.answer}
+            changePageClick = {changePageClick}
+            editPageClick = {editPageClick}
+            nextPage = {nextPage}
             />
           ) : (
-            <textarea
-              readOnly
-              className={styles.output}
-              value={fishkappObject.question}
-              style={{ height: height + "px" }}
+            <CardSide
+            sideName={styles.front}
+            editMode= {editMode}
+            value= {fishkappObject.question}
+            changePageClick = {changePageClick}
+            editPageClick = {editPageClick}
+            nextPage = {nextPage}
             />
-          )}
-        </div>
-      </div>
+          )
     ))};

@@ -45,7 +45,7 @@ function App() {
       answer:
         "its //comment",
     }
-  ])
+  ]);
 
   
 
@@ -70,9 +70,10 @@ function App() {
         return { ...card, [cardSide]: input }
       }
       return card
-    });
+    })
 
     setCardsData(updateCard);
+  };
     
   const deleteCard = (id: number) => {
     const cardIndex = cardsData.findIndex((card) => card.id === id);
@@ -102,8 +103,7 @@ function App() {
             question ={card.question}
             answer = {card.answer}
             editMode={false}
-            updateCard={updateCard}
-            deleteCard={deleteCard}
+            updateCard={updateCards}
             />
             ))}
           </>
