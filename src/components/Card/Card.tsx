@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Card.module.css";
 import editIcon from "../../assets/editIcon.svg";
 import { FrontCardEdit } from "./FrontCardEdit";
@@ -30,6 +30,9 @@ export const Card = (props: CardI) => {
       answer: props.answer ? props.answer : "",
     });
 
+    useEffect(() => {
+      setfishkappObject({question: props.question, answer: props.answer});
+    },[props.question, props.answer])
 
   const changePageClick = () => {
     setNextPage(!nextPage);
@@ -39,12 +42,8 @@ export const Card = (props: CardI) => {
   const editPageClick = () => {
     setEditMode(!editMode);
   };
-
-  const updateCard = (cardSide: string, input: string) => {
-    props.updateCard(props.id, cardSide, input);
-    editPageClick();
-  }
-
+  
+  
   return (
     editMode ? (
       nextPage ? (
