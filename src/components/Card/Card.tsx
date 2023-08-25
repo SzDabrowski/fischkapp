@@ -41,7 +41,8 @@ export const Card = (props: CardI) => {
   const editPageClick = () => {
     setEditMode(!editMode);
   };
-
+  
+  
   return (
     editMode ? (
       nextPage ? (
