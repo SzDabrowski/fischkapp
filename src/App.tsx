@@ -71,8 +71,14 @@ function App() {
       }
       return card
     });
-    setCardsData(updateCard);  
-    }
+
+    setCardsData(updateCard);
+    
+  const deleteCard = (id: number) => {
+    const cardIndex = cardsData.findIndex((card) => card.id === id);
+    cardsData.splice(cardIndex, 1);
+    setCardsData([...cardsData]);
+  }
 
 
   return (
@@ -88,20 +94,20 @@ function App() {
         saveNewCard={saveCard} />
         ):(<></>)}
       
-          {cardsData.length > 0 && (
-            <>
-            {cardsData.map(card => (
-              <Card
-              id = {card.id}
-              question ={card.question}
-              answer = {card.answer}
-              editMode={false}
-              updateCard={updateCard}
-              />
-              ))}
-            </>
-            )}
-
+        {cardsData.length > 0 && (
+          <>
+          {cardsData.map(card => (
+            <Card
+            id = {card.id}
+            question ={card.question}
+            answer = {card.answer}
+            editMode={false}
+            updateCard={updateCard}
+            deleteCard={deleteCard}
+            />
+            ))}
+          </>
+          )}
       </div>
     </AppLayout>
   );
