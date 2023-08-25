@@ -2,6 +2,7 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import {NewCard} from "./components/Card/NewCard";
 import {Card} from "./components/Card/Card";
+import {addCardService} from "./services/apiService";
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
@@ -52,16 +53,29 @@ function App() {
   const addCard = () => {
     setDisplayNewCard(true);
   };
+    
 
-  const saveCard = ( card: FishkappCard) => {
+  const saveCard = async ( card: FishkappCard) => {
+    try {
+      const res = await addCardService(card.question, card.answer);
+      const newCard = res.flashcard;
+    //const res = addCardService(card.question, card.answer);
+    //console.log(res);
     const newCardObject = {
       id: cardsData.length+1,
       question: card.question,
       answer: card.answer
     }
 
-    setCardsData([...cardsData, newCardObject]);
+    setCardsData([...cardsData,
+      { id: newCard.id, question: newCard.question, answer: newCard.answer },
+    ]);
+
     setDisplayNewCard(false);
+    } catch (error) {
+      console.error("Error while adding fish Card:", error);
+      throw error;
+    }
   };
 
   const updateCards = (id: number, cardSide: string, input: string) => {
