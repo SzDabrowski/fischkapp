@@ -16,11 +16,12 @@ export const CardSide = (props: CardI) => {
     const [animationState, setAnimationState] = useState<Boolean>(false);
 
     useEffect(() => {
+      if(!animationState){
       setAnimationState(true);
       setTimeout(() => {
         setAnimationState(false);
       }, 500);
-
+    }
     }, [props.nextPage]);
 
 
