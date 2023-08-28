@@ -51,3 +51,21 @@ export const addCardService = async(question: string, answer: string): Promise<R
     }
  
 };
+
+
+export const getCardsService = async<data>():Promise<data> => {
+  const url: string = "https://training.nerdbord.io/api/v1/fischkapp/flashcards"
+
+  try {
+    const response = await fetch(url, {});
+
+    if (!response.ok){
+      throw new Error("reponse was not okey");
+    }
+    return (await response.json()) as data;
+
+  } catch (error){
+    throw(error);
+  }
+
+}

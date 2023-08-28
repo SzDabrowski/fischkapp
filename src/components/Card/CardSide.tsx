@@ -12,8 +12,17 @@ interface CardI {
 }
 
 export const CardSide = (props: CardI) => {
-    const [height, setHeight] = useState<number>(60);
+    const [height, setHeight] = useState<string>("");
     const [animationState, setAnimationState] = useState<Boolean>(false);
+
+    const inputHeight = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      setHeight(event.target.scrollHeight + "px");
+    };
+
+    useEffect(() => {
+      inputHeight;
+    },[]);
 
     useEffect(() => {
       if(!animationState){
@@ -38,7 +47,7 @@ export const CardSide = (props: CardI) => {
                   readOnly
                   className={styles.output}
                   value={props.value}
-                  style={{ height: height + "px" }}
+                  style={{ height: `100px` }}
                 />
               </div>
             </div> 
