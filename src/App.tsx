@@ -35,7 +35,6 @@ function App() {
     setDisplayNewCard(false);
     try {
       const res = await addCardService(card.question, card.answer);
-      await addCardService(card.question, card.answer).then(data => console.log(data));
       const newCard = res.flashcard;
       
     //const res = addCardService(card.question, card.answer);
@@ -81,7 +80,6 @@ function App() {
       .then((importedCardsArray) => {
         const cardsArray = importedCardsArray as iCard[];
         setCardsData(cardsArray);
-        //console.log(cardsData);
       })
       .catch((error) => {
         console.error("Error fetching cards", error);
