@@ -1,5 +1,5 @@
 interface iCard{
-    id: number,
+    id: string,
     question: string,
     answer: string,
   }
@@ -43,7 +43,6 @@ export const addCardService = async(question: string, answer: string): Promise<R
             if (!response.ok) {
                 throw new Error("Failed to upload FishCard");
               }
-              const res = response.json();
         
               return response.json();
     } catch(error){
@@ -52,6 +51,33 @@ export const addCardService = async(question: string, answer: string): Promise<R
  
 };
 
+export const editCardService = async(
+  id: string,
+  front: string,
+  back: string,):Promise<void> => {
+  const ulr = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards/'+ id;
+
+
+  console.log(id, front, back);
+  try{
+    const response = await fetch(ulr, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': 'secret_token',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: id,
+        front: front,
+        back: back}),
+      });
+
+      console.log(response.json());
+    } catch(error) {
+    throw error;
+  }
+  
+}
 
 export const getCardsService = async<data>():Promise<data> => {
   const url: string = "https://training.nerdbord.io/api/v1/fischkapp/flashcards"

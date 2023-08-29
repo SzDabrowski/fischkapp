@@ -2,7 +2,7 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import {NewCard} from "./components/Card/NewCard";
 import {Card} from "./components/Card/Card";
-import {addCardService, getCardsService} from "./services/apiService";
+import {addCardService, getCardsService, editCardService} from "./services/apiService";
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
@@ -13,19 +13,15 @@ interface FishkappCard {
 }
 
 interface iCard{
-  _id: number,
-  face: string,
+  _id: string,
+  front: string,
   back: string,
 }
 
 function App() {
-  
-
   const [displayNewCard, setDisplayNewCard] = useState<boolean>(false)
   const [editMode, setEditMode] = useState<boolean>(false);
   const [cardsData, setCardsData] = useState<iCard[]>([]);
-
-  
 
   const addCard = () => {
     setDisplayNewCard(true);
@@ -36,17 +32,9 @@ function App() {
     try {
       const res = await addCardService(card.question, card.answer);
       const newCard = res.flashcard;
-      
-    //const res = addCardService(card.question, card.answer);
-    //console.log(res);
-    const newCardObject = {
-      id: cardsData.length+1,
-      question: card.question,
-      answer: card.answer
-    }
 
     setCardsData([...cardsData,
-      { _id: newCard.id, face: newCard.question, back: newCard.answer },
+      { _id: newCard.id, front: newCard.question, back: newCard.answer },
     ]);
 
     setDisplayNewCard(false);
@@ -56,26 +44,28 @@ function App() {
     }
   };
 
-  const updateCards = (id: number, cardSide: string, input: string) => {
-    const updateCard = cardsData.map((card) => {
-      if (card._id === id) {
-        return { ...card, [cardSide]: input }
-      }
-      return card
-    })
-
-    setCardsData(updateCard);
+  const updateCards = (id: string, cardSide: string, input: string) => {
+    const updateCard = () => {
+      for (const card of cardsData){
+        if (card._id === id) {
+          return { ...card, [cardSide]: input }
+        }
+      } 
+    }
+    const card = updateCard()
+    editCardService(String(card?._id), String(card?.front), String(card?.back));
+    renderCards();
   };
 
   
     
-  const deleteCard = (id: number) => {
+  const deleteCard = (id: string) => {
     const cardIndex = cardsData.findIndex((card) => card._id === id);
     cardsData.splice(cardIndex, 1);
     setCardsData([...cardsData]);
   }
 
-  useEffect(() => {
+  const renderCards = () => {
     getCardsService()
       .then((importedCardsArray) => {
         const cardsArray = importedCardsArray as iCard[];
@@ -84,15 +74,17 @@ function App() {
       .catch((error) => {
         console.error("Error fetching cards", error);
       });
-  }, []);
-
-  const renderCards = () => {
-
   }
+
+  useEffect(() => {
+    renderCards();
+  }, []);
 
   return (
     <AppLayout>
-      <AppHeader currentCardsNumber={cardsData.length} addCard={addCard} />
+      <AppHeader 
+      currentCardsNumber={cardsData.length + (displayNewCard? 1 : 0)} 
+      addCard={addCard} />
 
       <div className="cardList_container">
        
@@ -108,7 +100,7 @@ function App() {
           {cardsData.map(card => (
             <Card
             id = {card._id}
-            question ={card.face}
+            question ={card.front}
             answer = {card.back}
             editMode={false}
             updateCard={updateCards}

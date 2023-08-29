@@ -17,6 +17,8 @@ export const CardSide = (props: CardI) => {
 
     const inputHeight = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       const { value } = event.target;
+      const scrollHeight = event.target.scrollHeight;
+      event.target.style.height = scrollHeight + "px";
       setHeight(event.target.scrollHeight + "px");
     };
 
@@ -47,7 +49,7 @@ export const CardSide = (props: CardI) => {
                   readOnly
                   className={styles.output}
                   value={props.value}
-                  style={{ height: `100px` }}
+                  style={{ height: `50px` }}
                 />
               </div>
             </div> 

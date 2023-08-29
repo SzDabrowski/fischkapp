@@ -9,10 +9,10 @@ interface FishkappCard {
 }
 
 interface CardI {
-    id: number;
+    id: string;
     editMode: boolean;
     setEditMode: (value: boolean) => void;
-    updateCard: (id: number, cardSide: string, input: string) => void;
+    updateCard: (id: string, cardSide: string, input: string) => void;
 
     question: string;
 }
@@ -33,7 +33,7 @@ export const BackCardEdit = (props: CardI) => {
       };
     
       const updateCard = () => {
-        props.updateCard(props.id, 'answer',fishkappObject.answer);
+        props.updateCard(props.id, 'back',fishkappObject.answer);
         props.setEditMode(false);
       }
 
