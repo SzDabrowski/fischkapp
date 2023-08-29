@@ -17,6 +17,7 @@ interface CardI {
     answer: string;
     editMode: boolean;
     updateCard: (id:string, cardSide: string, input: string) => void;
+    deleteCard: (id: string) => void;
 }
 
 export const Card = (props: CardI) => {
@@ -43,13 +44,6 @@ export const Card = (props: CardI) => {
   const editPageClick = () => {
     setEditMode(!editMode);
   };
-
-
-  const updateCard = (cardSide: string, input: string) => {
-    props.updateCard(props.id, cardSide, input);
-    console
-    editPageClick();
-  }
     
   return (
     editMode ? (
@@ -59,11 +53,13 @@ export const Card = (props: CardI) => {
           updateCard={props.updateCard}
           question={fishkappObject.question} 
           editMode={editMode} 
-          setEditMode={editPageClick} />
+          setEditMode={editPageClick}
+          deleteCard={props.deleteCard} />
       ) : (
         <FrontCardEdit id = {props.id} editMode={editMode} 
         setEditMode={editPageClick} 
-        updateCard={props.updateCard}/>
+        updateCard={props.updateCard}
+        deleteCard={props.deleteCard}/>
       )
     ) : (
       
