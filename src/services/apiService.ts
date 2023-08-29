@@ -8,9 +8,9 @@ interface iCard{
     flashcard: iCard;
   }
 
-export const addCardService = async(question: string, answer: string): Promise<ResponseCard> => {
+  const url: string = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards/';
 
-    const url: string = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards';
+export const addCardService = async(question: string, answer: string): Promise<ResponseCard> => {
 
     const front: string = question; //"What is life?";
     const back: string = answer //"I have no idea."
@@ -55,12 +55,9 @@ export const editCardService = async(
   id: string,
   front: string,
   back: string,):Promise<void> => {
-  const ulr = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards/'+ id;
 
-
-  console.log(id, front, back);
   try{
-    const response = await fetch(ulr, {
+    const response = await fetch(url+id, {
       method: 'PATCH',
       headers: {
         'Authorization': 'secret_token',
@@ -80,7 +77,6 @@ export const editCardService = async(
 }
 
 export const getCardsService = async<data>():Promise<data> => {
-  const url: string = "https://training.nerdbord.io/api/v1/fischkapp/flashcards"
 
   try {
     const response = await fetch(url, {});
@@ -94,4 +90,17 @@ export const getCardsService = async<data>():Promise<data> => {
     throw(error);
   }
 
+}
+
+export const deleteCardService = async(id:string):Promise<void> => {
+  try {
+    const response = fetch(url+id,{
+      headers: {
+        Authorization: "secret_token"
+      },
+      method: "DELETE"
+    })
+  } catch (error){
+    throw(error);
+  }
 }

@@ -2,7 +2,7 @@ import { AppHeader } from "./components/AppHeader";
 import { AppLayout } from "./components/AppLayout";
 import {NewCard} from "./components/Card/NewCard";
 import {Card} from "./components/Card/Card";
-import {addCardService, getCardsService, editCardService} from "./services/apiService";
+import {addCardService, getCardsService, editCardService, deleteCardService} from "./services/apiService";
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
@@ -44,6 +44,17 @@ function App() {
     }
   };
 
+  const renderCards = () => {
+    getCardsService()
+      .then((importedCardsArray) => {
+        const cardsArray = importedCardsArray as iCard[];
+        setCardsData(cardsArray);
+      })
+      .catch((error) => {
+        console.error("Error fetching cards", error);
+      });
+  }
+
   const updateCards = (id: string, cardSide: string, input: string) => {
     const updateCard = () => {
       for (const card of cardsData){
@@ -58,22 +69,9 @@ function App() {
   };
 
   
-    
   const deleteCard = (id: string) => {
-    const cardIndex = cardsData.findIndex((card) => card._id === id);
-    cardsData.splice(cardIndex, 1);
-    setCardsData([...cardsData]);
-  }
-
-  const renderCards = () => {
-    getCardsService()
-      .then((importedCardsArray) => {
-        const cardsArray = importedCardsArray as iCard[];
-        setCardsData(cardsArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching cards", error);
-      });
+    deleteCardService(id);
+    renderCards();
   }
 
   useEffect(() => {
@@ -104,6 +102,7 @@ function App() {
             answer = {card.back}
             editMode={false}
             updateCard={updateCards}
+            deleteCard={deleteCard}
             />
             ))}
           </>

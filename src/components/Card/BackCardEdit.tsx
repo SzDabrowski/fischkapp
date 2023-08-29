@@ -11,10 +11,10 @@ interface FishkappCard {
 interface CardI {
     id: string;
     editMode: boolean;
+    question: string;
     setEditMode: (value: boolean) => void;
     updateCard: (id: string, cardSide: string, input: string) => void;
-
-    question: string;
+    deleteCard: (id: string) => void;
 }
 
 export const BackCardEdit = (props: CardI) => {
@@ -41,12 +41,16 @@ export const BackCardEdit = (props: CardI) => {
         props.setEditMode(!props.editMode);
       };
 
+      const deleteCard = () => {
+        props.deleteCard(props.id);
+      }
+
 
     return (
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
                 <button className={styles.corner_button}>
-                     <img src={deleteImage} alt="delete" />
+                     <img src={deleteImage} alt="delete" onClick={deleteCard}/>
                 </button>
             </div>
 

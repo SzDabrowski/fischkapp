@@ -13,6 +13,7 @@ interface CardI {
     editMode: boolean;
     updateCard: (id: string, cardSide: string, input: string) => void;
     setEditMode: (value: boolean) => void;
+    deleteCard: (id: string) => void;
 }
 
 export const FrontCardEdit = (props: CardI) => {
@@ -41,12 +42,16 @@ export const FrontCardEdit = (props: CardI) => {
         props.setEditMode(false);
       }
 
+      const deleteCard = () => {
+        props.deleteCard(props.id);
+      }
+
 
     return (
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
                 <button className={styles.corner_button}>
-                     <img src={deleteImage} alt="delete" />
+                     <img src={deleteImage} alt="delete" onClick={deleteCard}/>
                 </button>
             </div>
 
