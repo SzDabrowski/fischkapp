@@ -8,8 +8,6 @@ export interface Header {
   addCard: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-
-
 export function AppHeader(props: Header){
 
   return (<header className={styles.header}>

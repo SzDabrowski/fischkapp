@@ -12,11 +12,11 @@ interface FishkappCard {
 }
 
 interface CardI {
-    id: number;
+    id: string;
     question: string;
     answer: string;
     editMode: boolean;
-    updateCard: (id:number, cardSide: string, input: string) => void;
+    updateCard: (id:string, cardSide: string, input: string) => void;
 }
 
 export const Card = (props: CardI) => {
@@ -35,6 +35,7 @@ export const Card = (props: CardI) => {
     },[props.question, props.answer])
 
   const changePageClick = () => {
+    
     setNextPage(!nextPage);
     textareaRef.current?.focus();
   };
