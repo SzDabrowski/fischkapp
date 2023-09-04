@@ -1,3 +1,5 @@
+
+
 interface iCard{
     id: string,
     question: string,
@@ -10,10 +12,11 @@ interface iCard{
 
   const url: string = 'https://training.nerdbord.io/api/v1/fischkapp/flashcards/';
 
-export const addCardService = async(question: string, answer: string): Promise<ResponseCard> => {
 
-    const front: string = question; //"What is life?";
-    const back: string = answer //"I have no idea."
+export const addCardService = async(propFront: string, propBack: string): Promise<ResponseCard> => {
+
+    const front: string = propFront; //"What is life?";
+    const back: string = propBack //"I have no idea."
 
     if (!url) {
         throw new Error("FISHKAPP_POST environment variable is not set.");
@@ -21,7 +24,7 @@ export const addCardService = async(question: string, answer: string): Promise<R
       if (!front && !back) {
         throw new Error("Front and back are required");
       }
-      if (!front) {
+      if (front === "") {
         throw new Error("Front is required");
       }
       if (!back) {

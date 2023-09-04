@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from "react";
 import styles from "./AppHeader.module.css";
 import logotype from "../assets/header_logo.svg";
 import button from "../assets/header_button.svg";
@@ -16,7 +16,7 @@ export function AppHeader(props: Header){
         <h1 className="header">Cards:</h1>
         <span className="cardsNumber">{props.currentCardsNumber}</span>
     </div >
-     <button className="addButton" onClick={props.addCard}>
+     <button className="addButton" onClick={props.addCard} aria-label="addButton">
       <img src={button} alt={"add card button"} />
       </button>
 

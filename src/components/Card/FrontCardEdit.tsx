@@ -39,6 +39,8 @@ export const FrontCardEdit = (props: CardI) => {
 
       const updateCard = () => {
         props.updateCard(props.id, "front", fishkappObject.question);
+        console.log("111:");
+        console.log(fishkappObject.question);
         props.setEditMode(false);
       }
 

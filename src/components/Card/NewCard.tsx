@@ -41,6 +41,7 @@ export const NewCard = (props: CardI) => {
   
   const saveNewCard = () => {
     props.saveNewCard(fishkappObject);
+    console.log(fishkappObject);
   };
 
 
