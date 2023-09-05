@@ -32,12 +32,13 @@ export function App() {
     setDisplayNewCard(false);
     try {
       const res = await addCardService(card.question, card.answer);
-      const newCard = res.flashcard;
+      const newCard:iCard = {
+        _id: "0000",
+        front: card.question,
+        back: card.answer
+      } 
       
-
-    setCardsData([...cardsData,
-      { _id: newCard.id, front: newCard.question, back: newCard.answer },
-    ]);
+    setCardsData([...cardsData,newCard]);
 
     setDisplayNewCard(false);
     } catch (error) {

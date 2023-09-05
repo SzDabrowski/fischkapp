@@ -27,6 +27,7 @@
   }
   .text_wrapper {
     position: relative;
+    margin-bottom: 75px;
   }
   .question_text {
     position: relative;
@@ -71,4 +72,15 @@
     word-wrap: break-word;
     font-weight: 500;
     cursor: pointer;
+  }
+
+  .errorText {
+    color:hsl(0, 100%, 67%);;
+    margin-left: 14px;
+    font-size: .7rem;
+    display: none;
+  }
+
+  .displayError {
+    display: inline;
   }

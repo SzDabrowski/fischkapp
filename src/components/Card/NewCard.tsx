@@ -15,6 +15,7 @@ interface CardI {
 export const NewCard = (props: CardI) => {
   const [nextPage, setNextPage] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [errorText,setErrorText] = useState(String);
 
   const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
     question: "",
@@ -31,7 +32,12 @@ export const NewCard = (props: CardI) => {
   };
 
   const nextPageClick = () => {
-    setNextPage(true);
+    if (fishkappObject.question === "") {
+      setErrorText("Front text is required");
+    } else {
+      setNextPage(true);
+      setErrorText("");
+    }
     textareaRef.current?.focus();
   };
   const backPageClick = () => {
@@ -40,8 +46,12 @@ export const NewCard = (props: CardI) => {
   };
   
   const saveNewCard = () => {
-    props.saveNewCard(fishkappObject);
-    console.log(fishkappObject);
+    if (fishkappObject.answer === "") {
+      setErrorText("Back text is required");
+    } else {
+      props.saveNewCard(fishkappObject);
+      setErrorText("");
+    }
   };
 
 
@@ -67,6 +77,7 @@ export const NewCard = (props: CardI) => {
           handleInputChange={handleInputChange}
           ref={textareaRef}
         />
+         <p className={`${styles.errorText} ${errorText ? styles.displayError : ''}`}>{errorText}</p>
       </div>
       <div className={styles.action_wrapper}>
         {nextPage ? (

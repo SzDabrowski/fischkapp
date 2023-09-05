@@ -25,6 +25,8 @@ export const Card = (props: CardI) => {
     const [editMode,setEditMode] = useState(props.editMode);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [height, setHeight] = useState<number>(60);
+
+
   
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
       question: props.question ? props.question : "",

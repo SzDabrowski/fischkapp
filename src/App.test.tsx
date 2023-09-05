@@ -45,19 +45,14 @@ describe("Integration Test for Adding Card", ()=> {
       await userEvent.type(frontTextInput, data.flashcard.front);
       expect(screen.getByText(data.flashcard.front)).toBeInTheDocument(); 
       await userEvent.click(nextButton);
-      console.log("passed1");
   
       // Type back value in newCard element
       const saveButton = await waitFor(() => screen.getByText("Save"));
       const backTextInput = await waitFor(() => screen.getByRole("textbox"));
       
       await userEvent.type(backTextInput, data.flashcard.back);
-      screen.debug(document);
       expect(screen.getByText(data.flashcard.back)).toBeInTheDocument(); 
       await userEvent.click(saveButton);
-      console.log("passed2");
-
-      screen.debug(document);
 
       await waitFor(() => {
         expect(screen.getByText(data.flashcard.front)).toBeInTheDocument(); 
@@ -77,19 +72,11 @@ describe("Integration Test for Adding Card", ()=> {
       // Skip front value in newCard element
       const nextButton = await waitFor(() => screen.getByText("Next"));
       await userEvent.click(nextButton);
-  
-      // Type back value in newCard element
-      const saveButton = await waitFor(() => screen.getByText("Save"));
-      const backTextInput = await waitFor(() => screen.getByRole("textbox"));
-      
-      await userEvent.type(backTextInput, data.flashcard.back);
-      expect(screen.getByText(data.flashcard.back)).toBeInTheDocument(); 
-      await userEvent.click(saveButton);
 
       //screen.debug(document);
 
       await waitFor(() =>
-      expect(jest.spyOn(global.console, 'error'))
+      expect(screen.getByText("Front text is required")).toBeInTheDocument()
     );
     });
 
@@ -106,20 +93,20 @@ describe("Integration Test for Adding Card", ()=> {
   
        // Skip front value in newCard element
        const nextButton = await waitFor(() => screen.getByText("Next"));
-       await userEvent.click(nextButton);
+        const frontTextInput = await waitFor(() => screen.getByRole("textbox"));
+        await userEvent.type(frontTextInput, data.flashcard.front);
+        expect(screen.getByText(data.flashcard.front)).toBeInTheDocument(); 
+        await userEvent.click(nextButton);
   
 
        // Type back value in newCard element
        const saveButton = await waitFor(() => screen.getByText("Save"));
-       const backTextInput = await waitFor(() => screen.getByRole("textbox"));
-       await userEvent.type(backTextInput, data.flashcard.back);
        await userEvent.click(saveButton);
 
-       const consoleErrorSpy = jest.spyOn(global.console, 'error');
-  
+
        await waitFor(() =>
-        expect(jest.spyOn(global.console, 'error'))
-      );
+      expect(screen.getByText("Back text is required")).toBeInTheDocument()
+    );
     });
     
 });
