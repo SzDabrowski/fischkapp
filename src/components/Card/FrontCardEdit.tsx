@@ -14,10 +14,12 @@ interface CardI {
     updateCard: (id: string, cardSide: string, input: string) => void;
     setEditMode: (value: boolean) => void;
     deleteCard: (id: string) => void;
+    
 }
 
 export const FrontCardEdit = (props: CardI) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [errorText,setErrorText] = useState(String);
 
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
         question: "",
@@ -38,10 +40,12 @@ export const FrontCardEdit = (props: CardI) => {
       }
 
       const updateCard = () => {
-        props.updateCard(props.id, "front", fishkappObject.question);
-        console.log("111:");
-        console.log(fishkappObject.question);
-        props.setEditMode(false);
+        if(fishkappObject.question === ""){
+          setErrorText("New text value is required")
+        } else {
+          props.updateCard(props.id, "front", fishkappObject.question);
+          props.setEditMode(false);
+        }
       }
 
       const deleteCard = () => {
@@ -65,6 +69,7 @@ export const FrontCardEdit = (props: CardI) => {
                     handleInputChange={handleInputChange}
                     ref={textareaRef}
                     />
+                    <p className={`${styles.errorText} ${errorText ? styles.displayError : ''}`}>{errorText}</p>
             </div>
 
             <div className={styles.action_wrapper}>

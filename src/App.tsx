@@ -47,28 +47,27 @@ export function App() {
     }
   };
 
-  const renderCards = () => {
-    getCardsService()
-      .then((importedCardsArray) => {
-        const cardsArray = importedCardsArray as iCard[];
-        setCardsData(cardsArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching cards", error);
-      });
+  const renderCards = async () => {
+    try{
+      const data: iCard[] = await getCardsService();
+      setCardsData(data);
+    }catch(error){
+      console.log(error)
+    }
   }
 
   const updateCards = (id: string, cardSide: string, input: string) => {
     const updateCard = () => {
       for (const card of cardsData){
         if (card._id === id) {
-          return { ...card, [cardSide]: input }
+          const newCard:iCard = { ...card, [cardSide]: input };
+          setCardsData([...cardsData, newCard]);
+          return newCard;
         }
       } 
     }
     const card = updateCard()
     editCardService(String(card?._id), String(card?.front), String(card?.back));
-    renderCards();
   };
 
   
