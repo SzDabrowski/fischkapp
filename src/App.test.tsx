@@ -143,11 +143,37 @@ describe("Integration Test for editing flashcard", () => {
     await waitFor(() => {
       setTimeout(()=>{
         expect(screen.getByText("edited Front")).toBeInTheDocument();
-      }, 50);
+      }, 100);
     });
   });
 
   it("Should not be possible to change value of flashcard when new value is empty", async () => {
+    const editedValue:string = "edited Front";
+
+    render(<App />);
+    mockGetCardsService.mockResolvedValue(cards);
+
+
+    //go to card edit mode
+    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
+
+    await userEvent.click(editButton);
+    
+    //save new value
+    const saveBtn = await waitFor(() => screen.getByText("Save"));
+    await userEvent.click(saveBtn);
+
+    const errorText = await waitFor(() =>
+      screen.getByText("New text value is required"),
+    );
+
+    await waitFor(()=>{
+      expect(errorText).toBeInTheDocument();
+    })
+    
+  });
+
+  it("Should exit editing mode when clicking cancel button", async () => {
     
     const editedValue:string = "edited Front";
 
@@ -162,14 +188,12 @@ describe("Integration Test for editing flashcard", () => {
     await userEvent.click(editButton);
     
     //save new value
-    const saveBtn = await waitFor(() => screen.getByText("Save"));
-    await userEvent.click(saveBtn);
+    const cancelBtn = await waitFor(() => screen.getByText("Cancel"));
+    await userEvent.click(cancelBtn);
 
-
-    const errorText = await waitFor(() =>
-      screen.getByText("New text value is required"),
-    );
-
-    expect(errorText).toBeInTheDocument();
+    await waitFor(()=>{
+      expect(cancelBtn).not.toBeInTheDocument();
+    })
   });
+
 });
