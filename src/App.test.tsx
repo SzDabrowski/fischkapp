@@ -23,7 +23,7 @@ const mockGetCardsService = getCardsService as jest.Mock;
 describe("Integration Test for Adding Card", ()=> {
 
   const cardTest: { flashcard: iCard } = {
-    flashcard: { front: "Test Front", back: "Test Back", _id: "0000" },
+    flashcard: { front: "front_testing", back: "back_tesing", _id: "0000" },
   };
 
     it("Should add new card when all values are given", async () => {
@@ -115,7 +115,7 @@ describe("Integration Test for Adding Card", ()=> {
 describe("Integration Test for editing flashcard", () => {
 
   const cards: iCard[] = [
-    { front: "front1", back: "back1", _id: "123" },
+    { front: "front_testing", back: "back_tesing", _id: "0000" },
   ];
 
   it("Should be able edit flashcard when the text value is given ", async () => {
@@ -184,7 +184,6 @@ describe("Integration Test for editing flashcard", () => {
 
     //go to card edit mode
     const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
-
     await userEvent.click(editButton);
     
     //save new value
@@ -195,5 +194,31 @@ describe("Integration Test for editing flashcard", () => {
       expect(cancelBtn).not.toBeInTheDocument();
     })
   });
-
 });
+
+describe("Integration test for deleting flashcard", () => {
+
+  const cards: iCard[] = [
+    { front: "front_testing", back: "back_tesing", _id: "0000" },
+  ];
+
+  it("Should be able to delete flashcard when clicking on delete button", async()=>{
+    render(<App />);
+
+    mockGetCardsService.mockResolvedValue(cards);
+
+    //go to card edit mode
+    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
+    await userEvent.click(editButton);
+
+    //find delete button
+    const delButton = await waitFor(() => screen.getByLabelText("delButton"));
+    await userEvent.click(editButton);
+
+    await waitFor(() => {
+      setTimeout(()=>{
+        expect(cards[0].front).not.toBeInTheDocument();
+      }, 100);
+    });
+  })
+})
