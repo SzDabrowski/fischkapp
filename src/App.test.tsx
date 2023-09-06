@@ -115,7 +115,7 @@ describe("Integration Test for Adding Card", ()=> {
 describe("Integration Test for editing flashcard", () => {
 
   const cards: iCard[] = [
-    { front: "front_testing", back: "back_tesing", _id: "0000" },
+    { front: "front_testing", back: "back_testing", _id: "0000" },
   ];
 
   it("Should be able edit flashcard when the text value is given ", async () => {
@@ -218,5 +218,25 @@ describe("Integration test for deleting flashcard", () => {
         expect(cards[0].front).not.toBeInTheDocument();
       }, 100);
     });
+  })
+})
+
+describe("Integration test for displaying flashcards", () =>{
+
+  it("Shoud display all given flashcards",async()=>{
+
+    const cards: iCard[] = [
+      { front: "front_testing", back: "back_tesing", _id: "0000" },
+      { front: "front_testing", back: "back_tesing", _id: "1111" },
+    ];
+
+    mockGetCardsService.mockResolvedValue(cards);
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getAllByText("front_testing").length).toBe(2);
+    });
+
   })
 })
