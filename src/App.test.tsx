@@ -141,9 +141,7 @@ describe("Integration Test for editing flashcard", () => {
     await userEvent.click(saveBtn);
 
     await waitFor(() => {
-      setTimeout(()=>{
         expect(screen.getByText("edited Front")).toBeInTheDocument();
-      }, 100);
     });
   });
 
@@ -170,7 +168,6 @@ describe("Integration Test for editing flashcard", () => {
     await waitFor(()=>{
       expect(errorText).toBeInTheDocument();
     })
-    
   });
 
   it("Should exit editing mode when clicking cancel button", async () => {
@@ -203,6 +200,7 @@ describe("Integration test for deleting flashcard", () => {
   ];
 
   it("Should be able to delete flashcard when clicking on delete button", async()=>{
+    
     render(<App />);
 
     mockGetCardsService.mockResolvedValue(cards);
@@ -213,7 +211,7 @@ describe("Integration test for deleting flashcard", () => {
 
     //find delete button
     const delButton = await waitFor(() => screen.getByLabelText("delButton"));
-    await userEvent.click(editButton);
+    await userEvent.click(delButton);
 
     await waitFor(() => {
       setTimeout(()=>{
