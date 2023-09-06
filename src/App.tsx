@@ -73,7 +73,10 @@ export function App() {
   
   const deleteCard = (id: string) => {
     deleteCardService(id);
-    renderCards();
+
+    const updatedCardsData: iCard[] = cardsData.filter((card) => card._id !== id);
+    
+    setCardsData(updatedCardsData);
   }
 
   useEffect(() => {
