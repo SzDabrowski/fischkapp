@@ -62,6 +62,7 @@ export const Card = (props: CardI) => {
         setEditMode={editPageClick} 
         updateCard={props.updateCard}
         deleteCard={props.deleteCard}/>
+  
       )
     ) : (
       

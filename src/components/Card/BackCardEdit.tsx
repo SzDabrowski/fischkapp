@@ -19,6 +19,7 @@ interface CardI {
 
 export const BackCardEdit = (props: CardI) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [errorText,setErrorText] = useState(String);
 
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
         question: "",
@@ -33,8 +34,12 @@ export const BackCardEdit = (props: CardI) => {
       };
     
       const updateCard = () => {
-        props.updateCard(props.id, 'back',fishkappObject.answer);
-        props.setEditMode(false);
+        if(fishkappObject.question === ""){
+          setErrorText("New text value is required")
+        } else {
+          props.updateCard(props.id, "back", fishkappObject.question);
+          props.setEditMode(false);
+        }
       }
 
       const cancelPageClick = () => {
@@ -64,6 +69,7 @@ export const BackCardEdit = (props: CardI) => {
                     handleInputChange={handleInputChange}
                     ref={textareaRef}
                     />
+                    <p className={`${styles.errorText} ${errorText ? styles.displayError : ''}`}>{errorText}</p>
             </div>
 
             <div className={styles.action_wrapper}>

@@ -39,7 +39,7 @@ export const CardSide = (props: CardI) => {
   return (
            <div className={`${styles.container} ${animationState ? styles.flipped : ''}`}>
            <div className={styles.corner_wrapper}>
-             <button className={styles.corner_button} onClick={props.editPageClick}>
+             <button className={styles.corner_button} onClick={props.editPageClick} aria-label="editBtn">
                <img src={editIcon} alt="edit" />
              </button>
            </div>
