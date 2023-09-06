@@ -5,6 +5,7 @@ import {Card} from "./components/Card/Card";
 import {addCardService, getCardsService, editCardService, deleteCardService} from "./services/apiService";
 import React, { useState, useEffect } from "react";
 
+
 import "./App.css";
 
 interface FishkappCard {
@@ -18,7 +19,7 @@ interface iCard{
   back: string,
 }
 
-function App() {
+export function App() {
   const [displayNewCard, setDisplayNewCard] = useState<boolean>(false)
   const [editMode, setEditMode] = useState<boolean>(false);
   const [cardsData, setCardsData] = useState<iCard[]>([]);
@@ -31,11 +32,13 @@ function App() {
     setDisplayNewCard(false);
     try {
       const res = await addCardService(card.question, card.answer);
-      const newCard = res.flashcard;
-
-    setCardsData([...cardsData,
-      { _id: newCard.id, front: newCard.question, back: newCard.answer },
-    ]);
+      const newCard:iCard = {
+        _id: "0000",
+        front: card.question,
+        back: card.answer
+      } 
+      
+    setCardsData([...cardsData,newCard]);
 
     setDisplayNewCard(false);
     } catch (error) {
@@ -78,13 +81,17 @@ function App() {
     renderCards();
   }, []);
 
+  useEffect(() => {
+    renderCards();
+  }, [cardsData]);
+
   return (
     <AppLayout>
       <AppHeader 
       currentCardsNumber={cardsData.length + (displayNewCard? 1 : 0)} 
       addCard={addCard} />
 
-      <div className="cardList_container">
+      <div  className="cardList_container">
        
        {displayNewCard ? (
         <NewCard  
@@ -97,6 +104,7 @@ function App() {
           <>
           {cardsData.map(card => (
             <Card
+            
             id = {card._id}
             question ={card.front}
             answer = {card.back}

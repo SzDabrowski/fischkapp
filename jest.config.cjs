@@ -1,4 +1,8 @@
 module.exports = {
-  preset: 'ts-jest/presets/default',
-  testEnvironment: 'jest-environment-jsdom',
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  moduleNameMapper: {
+    "\\.css$": "identity-obj-proxy",
+    "\\.svg$": "svg-jest",
+  },
 };
