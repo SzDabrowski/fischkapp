@@ -2,6 +2,10 @@
   Fischkapp 📄
 </h1>
 
+<h2>You can find live version 
+<a href="https://szdabrowski.github.io/fischkapp/">here </a>
+</h2>
+
 This project aims to create a simple app that supports learning.
 
 ---
