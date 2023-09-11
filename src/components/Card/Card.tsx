@@ -4,6 +4,7 @@ import editIcon from "../../assets/editIcon.svg";
 import { FrontCardEdit } from "./FrontCardEdit";
 import { BackCardEdit } from "./BackCardEdit";
 import { CardSide } from "./CardSide";
+import ReactCardFlip from "react-card-flip";
 
 
 interface FishkappCard {
@@ -25,7 +26,7 @@ export const Card = (props: CardI) => {
     const [editMode,setEditMode] = useState(props.editMode);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [height, setHeight] = useState<number>(60);
-
+    const [animationState, setAnimationState] = useState<boolean>(false);
 
   
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
@@ -38,8 +39,7 @@ export const Card = (props: CardI) => {
     },[props.question, props.answer])
 
   const changePageClick = () => {
-    
-    setNextPage(!nextPage);
+    setNextPage(!nextPage);    
     textareaRef.current?.focus();
   };
 
@@ -56,33 +56,37 @@ export const Card = (props: CardI) => {
           question={fishkappObject.question} 
           editMode={editMode} 
           setEditMode={editPageClick}
-          deleteCard={props.deleteCard} />
+          deleteCard={props.deleteCard}
+          oldValue={props.answer} />
       ) : (
         <FrontCardEdit id = {props.id} editMode={editMode} 
         setEditMode={editPageClick} 
         updateCard={props.updateCard}
-        deleteCard={props.deleteCard}/>
+        deleteCard={props.deleteCard}
+        oldValue={props.question}/>
   
       )
     ) : (
-      
-          nextPage ? (
+      <ReactCardFlip isFlipped={nextPage} containerStyle={{ width: "100%" }}>
             <CardSide
-            sideName= {styles.back}
+            sideName="back"
+            sideNameStyle= {styles.back}
             editMode= {editMode}
             value= {fishkappObject.answer}
             changePageClick = {changePageClick}
             editPageClick = {editPageClick}
             nextPage = {nextPage}
+            animationState = {animationState}
             />
-          ) : (
             <CardSide
-            sideName={styles.front}
+            sideNameStyle={styles.front}
+            sideName="front"
             editMode= {editMode}
             value= {fishkappObject.question}
             changePageClick = {changePageClick}
             editPageClick = {editPageClick}
             nextPage = {nextPage}
+            animationState = {animationState}
             />
-          )
+         </ReactCardFlip>
     ))};

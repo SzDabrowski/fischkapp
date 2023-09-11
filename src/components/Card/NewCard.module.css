@@ -3,7 +3,7 @@
     flex-direction: column;
     background-color: white;
     width: 343px;
-    min-height: 188px;
+    height: auto;
     position: relative;
     border-radius: 15px;
     border: 0.5px #ebebec solid;
@@ -27,7 +27,12 @@
   }
   .text_wrapper {
     position: relative;
-    margin-bottom: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:40px;
+    width: 100%;
+    
   }
   .question_text {
     position: relative;
@@ -38,16 +43,14 @@
     max-width: 300px;
     font-weight: 400;
     word-wrap: break-word;
-    margin: 0 15px 0;
+    margin-left: 14px;
+    
   }
   .action_wrapper {
     display: flex;
-    flex-direction: row;
-    position: absolute;
-    align-self: end;
+    align-self: flex-end;
     gap: 10px;
-    bottom: 14px;
-    right: 14px;
+    padding: 0 14px 14px;
   }
   .left_button {
     width: 110px;

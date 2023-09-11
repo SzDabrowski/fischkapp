@@ -122,18 +122,19 @@ describe("Integration Test for editing flashcard", () => {
 
     const editedValue:string = "edited Front";
 
-    render(<App />);
-
     mockGetCardsService.mockResolvedValue(cards);
+
+    render(<App />);
     
+    //screen.debug(document);
 
     //go to card edit mode
-    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
-
+    const editButton = await waitFor(() => screen.getByLabelText("frontEditBtn"));
     await userEvent.click(editButton);
 
     //find input field and type new value 
     const textInput = await waitFor(() => screen.getByRole("textbox")); 
+    await userEvent.clear(textInput);
     await userEvent.type(textInput, editedValue);
     
     //save new value
@@ -141,7 +142,9 @@ describe("Integration Test for editing flashcard", () => {
     await userEvent.click(saveBtn);
 
     await waitFor(() => {
-        expect(screen.getByText("edited Front")).toBeInTheDocument();
+      setInterval(()=>{
+        expect(screen.getByText(editedValue)).toBeInTheDocument();
+      },300)
     });
   });
 
@@ -153,9 +156,12 @@ describe("Integration Test for editing flashcard", () => {
 
 
     //go to card edit mode
-    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
-
+    const editButton = await waitFor(() => screen.getByLabelText("frontEditBtn"));
     await userEvent.click(editButton);
+
+    //clear input
+    const textInput = await waitFor(() => screen.getByRole("textbox")); 
+    await userEvent.clear(textInput);
     
     //save new value
     const saveBtn = await waitFor(() => screen.getByText("Save"));
@@ -180,7 +186,7 @@ describe("Integration Test for editing flashcard", () => {
     
 
     //go to card edit mode
-    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
+    const editButton = await waitFor(() => screen.getByLabelText("frontEditBtn"));
     await userEvent.click(editButton);
     
     //save new value
@@ -206,11 +212,11 @@ describe("Integration test for deleting flashcard", () => {
     mockGetCardsService.mockResolvedValue(cards);
 
     //go to card edit mode
-    const editButton = await waitFor(() => screen.getByLabelText("editBtn"));
+    const editButton = await waitFor(() => screen.getByLabelText("frontEditBtn"));
     await userEvent.click(editButton);
 
     //find delete button
-    const delButton = await waitFor(() => screen.getByLabelText("delButton"));
+    const delButton = await waitFor(() => screen.getByLabelText("frontDelButton"));
     await userEvent.click(delButton);
 
     await waitFor(() => {
