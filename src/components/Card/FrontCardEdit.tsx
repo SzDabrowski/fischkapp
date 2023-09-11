@@ -60,7 +60,7 @@ export const FrontCardEdit = (props: CardI) => {
         <div className={styles.container}>
             <div className={styles.corner_wrapper}>
                 <button className={styles.corner_button}>
-                     <img src={deleteImage} alt="delete" onClick={deleteCard} aria-label="delButton"/>
+                     <img src={deleteImage} alt="delete" onClick={deleteCard} aria-label="frontDelButton"/>
                 </button>
             </div>
 

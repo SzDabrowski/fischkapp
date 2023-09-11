@@ -7,6 +7,7 @@ interface CardI {
     value: string;
     changePageClick: () => void;
     editPageClick: () => void;
+    sideNameStyle: string;
     sideName: string;
     nextPage: boolean;
     animationState: boolean;
@@ -31,7 +32,7 @@ export const CardSide = (props: CardI) => {
 
   return (
            <div className={styles.container}>
-             <button className={styles.corner_button} onClick={props.editPageClick} aria-label="editBtn">
+             <button className={styles.corner_button} onClick={props.editPageClick} aria-label={`${props.sideName}EditBtn`}>
                <img src={editIcon} alt="edit" />
              </button>
           
