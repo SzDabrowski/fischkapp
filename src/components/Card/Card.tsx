@@ -69,16 +69,6 @@ export const Card = (props: CardI) => {
     ) : (
       <ReactCardFlip isFlipped={nextPage} containerStyle={{ width: "100%" }}>
             <CardSide
-            sideName="back"
-            sideNameStyle= {styles.back}
-            editMode= {editMode}
-            value= {fishkappObject.answer}
-            changePageClick = {changePageClick}
-            editPageClick = {editPageClick}
-            nextPage = {nextPage}
-            animationState = {animationState}
-            />
-            <CardSide
             sideNameStyle={styles.front}
             sideName="front"
             editMode= {editMode}
@@ -88,5 +78,16 @@ export const Card = (props: CardI) => {
             nextPage = {nextPage}
             animationState = {animationState}
             />
+            <CardSide
+            sideName="back"
+            sideNameStyle= {styles.back}
+            editMode= {editMode}
+            value= {fishkappObject.answer}
+            changePageClick = {changePageClick}
+            editPageClick = {editPageClick}
+            nextPage = {nextPage}
+            animationState = {animationState}
+            />
+            
          </ReactCardFlip>
     ))};

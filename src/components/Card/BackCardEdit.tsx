@@ -29,10 +29,21 @@ export const BackCardEdit = (props: CardI) => {
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
-        setfishkappObject({ ...fishkappObject, answer: value });
-        event.target.style.height = "0px";
-        event.target.style.height = event.target.scrollHeight + "px";
+        setfishkappObject({ ...fishkappObject, question: value });
+        setHeight();
       };
+
+      const setHeight = () => {
+        if (textareaRef.current) {
+          textareaRef.current.style.height = "auto";
+          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+      };
+    
+      useEffect(() => {
+        textareaRef.current?.focus();
+        setHeight();
+      }, [fishkappObject.question]);
     
       const updateCard = () => {
         if(fishkappObject.question === ""){
