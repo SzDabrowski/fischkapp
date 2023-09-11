@@ -27,8 +27,10 @@ export const NewCard = (props: CardI) => {
     nextPage
       ? setfishkappObject({ ...fishkappObject, answer: value })
       : setfishkappObject({ ...fishkappObject, question: value });
-    event.target.style.height = "0px";
-    event.target.style.height = event.target.scrollHeight + "px";
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
   };
 
   const nextPageClick = () => {
@@ -67,19 +69,23 @@ export const NewCard = (props: CardI) => {
         )}
       </div>
       <div className={styles.text_wrapper}>
-        {nextPage && (
-          <p className={styles.question_text}>{fishkappObject.question}</p>
-        )}
+        <div>
+          {nextPage && (
+            <p className={styles.question_text}>{fishkappObject.question}</p>
+          )}
 
-        <TextareaInput
-          fishkappObject={fishkappObject}
-          nextPage={nextPage}
-          handleInputChange={handleInputChange}
-          ref={textareaRef}
-        />
-         <p className={`${styles.errorText} ${errorText ? styles.displayError : ''}`}>{errorText}</p>
-      </div>
-      <div className={styles.action_wrapper}>
+          <TextareaInput
+            fishkappObject={fishkappObject}
+            nextPage={nextPage}
+            handleInputChange={handleInputChange}
+            ref={textareaRef}
+          />
+          <p className={`${styles.errorText} ${errorText ? styles.displayError : ''}`}>{errorText}</p>
+
+        </div>
+
+
+         <div className={styles.action_wrapper}>
         {nextPage ? (
           <button onClick={backPageClick} className={styles.left_button}>
             Back
@@ -99,6 +105,8 @@ export const NewCard = (props: CardI) => {
           </button>
         )}
       </div>
+      </div>
+      
     </div>
   );
 };

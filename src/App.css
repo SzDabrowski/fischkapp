@@ -9,8 +9,11 @@
 body {
   background: #373737;
   font-family: 'Roboto', sans-serif;
-  font-family: 'Lexend', sans-serif;
-  
+  font-family: 'Lexend', sans-serif !important;
+}
+
+body *{
+  font-family: inherit;
 }
 
 .cardList_container{
@@ -21,6 +24,14 @@ body {
   overflow-y: auto;
 }
 
+.cardList_container > :first-child {
+  margin-top: 12px;;
+}
+
 .cardList_container > * {
-  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+a, button ,textarea {
+  -webkit-tap-highlight-color: transparent;
 }

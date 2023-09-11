@@ -9,6 +9,7 @@ interface FishkappCard {
 }
 
 interface CardI {
+    oldValue: string;
     id: string;
     editMode: boolean;
     question: string;
@@ -23,7 +24,7 @@ export const BackCardEdit = (props: CardI) => {
 
     const [fishkappObject, setfishkappObject] = useState<FishkappCard>({
         question: "",
-        answer: "",
+        answer: props.oldValue,
       });
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

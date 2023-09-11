@@ -10,6 +10,9 @@
   line-height: 21px;
   color: hsla(0, 0%, 11%, 1);
 
+  box-shadow: 0 2px 2px -2px gray;
+    z-index: 1;
+
 }
 
 .header div {

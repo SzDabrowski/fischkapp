@@ -5,14 +5,13 @@
   "homepage": "https://szdabrowski.github.io/fischkapp/",
   "type": "module",
   "scripts": {
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --config jest.config.cjs"
-    
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -42,6 +41,7 @@
     "jest-svg-transformer": "^1.0.0",
     "msw": "^1.2.5",
     "node-fetch": "^3.3.2",
+    "react-card-flip": "^1.2.0",
     "svg-jest": "^1.0.1",
     "ts-jest": "^29.1.1",
     "vite": "^4.4.9"

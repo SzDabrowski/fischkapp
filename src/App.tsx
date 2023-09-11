@@ -104,7 +104,7 @@ export function App() {
       
         {cardsData.length > 0 && (
           <>
-          {cardsData.map(card => (
+          {[...cardsData].reverse().map(card => (
             <Card
             
             id = {card._id}
