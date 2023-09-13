@@ -24,20 +24,19 @@ export const CardSide = (props: CardI) => {
     };
   
     useEffect(() => {
-      textareaRef.current?.focus();
       setHeight();
     }, [props.value]);
     
 
 
   return (
-           <div className={styles.container}>
+           <div className={styles.container} onClick={props.changePageClick}>
              <button className={styles.corner_button} onClick={props.editPageClick} aria-label={`${props.sideName}ditBtn`}>
                <img src={editIcon} alt="edit" />
              </button>
           
        
-           <div className={styles.text_wrapper} onClick={props.changePageClick}> 
+           <div className={styles.text_wrapper} > 
                 <textarea
                   ref={textareaRef}
                   readOnly

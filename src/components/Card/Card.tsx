@@ -39,17 +39,17 @@ export const Card = (props: CardI) => {
     },[props.question, props.answer])
 
   const changePageClick = () => {
-    setNextPage(!nextPage);    
-    textareaRef.current?.focus();
+    setNextPage(!nextPage);   
   };
 
   const editPageClick = () => {
     setEditMode(!editMode);
+    setNextPage(!nextPage); 
   };
     
   return (
     editMode ? (
-      nextPage ? (
+      !nextPage ? (
         <BackCardEdit
           id = {props.id}
           updateCard={props.updateCard}

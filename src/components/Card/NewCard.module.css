@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: white;
     width: 343px;
     height: auto;
@@ -29,8 +30,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap:40px;
     width: 100%;
     
   }
@@ -51,6 +50,7 @@
     align-self: flex-end;
     gap: 10px;
     padding: 0 14px 14px;
+    margin-top: 15px;
   }
   .left_button {
     width: 110px;

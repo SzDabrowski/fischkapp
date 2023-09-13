@@ -23,6 +23,7 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+    z-index: 1;
   }
 
 .text_wrapper {
@@ -47,7 +48,6 @@
   overflow: hidden;
   line-height: 20px;
   overflow-wrap: break-word;
-  cursor: pointer;
   padding: 12px 10px 10px 10px;
   &:focus {
     outline: none;

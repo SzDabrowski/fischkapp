@@ -27,21 +27,19 @@ export const NewCard = (props: CardI) => {
     nextPage
       ? setfishkappObject({ ...fishkappObject, answer: value })
       : setfishkappObject({ ...fishkappObject, question: value });
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
   };
 
   const nextPageClick = () => {
     if (fishkappObject.question === "") {
       setErrorText("Front text is required");
     } else {
-      setNextPage(true);
       setErrorText("");
+      setNextPage(true);
+      
     }
     textareaRef.current?.focus();
   };
+
   const backPageClick = () => {
     setNextPage(false);
     textareaRef.current?.focus();
@@ -51,8 +49,8 @@ export const NewCard = (props: CardI) => {
     if (fishkappObject.answer === "") {
       setErrorText("Back text is required");
     } else {
-      props.saveNewCard(fishkappObject);
       setErrorText("");
+      props.saveNewCard(fishkappObject);
     }
   };
 
@@ -85,7 +83,9 @@ export const NewCard = (props: CardI) => {
         </div>
 
 
-         <div className={styles.action_wrapper}>
+         
+      </div>
+      <div className={styles.action_wrapper}>
         {nextPage ? (
           <button onClick={backPageClick} className={styles.left_button}>
             Back
@@ -104,7 +104,7 @@ export const NewCard = (props: CardI) => {
             Next
           </button>
         )}
-      </div>
+
       </div>
       
     </div>

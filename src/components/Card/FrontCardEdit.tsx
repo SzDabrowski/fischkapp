@@ -26,33 +26,18 @@ export const FrontCardEdit = (props: CardI) => {
         question: props.oldValue,
         answer: "",
       });
+    
+      const oldValue = fishkappObject.question;
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
         setfishkappObject({ ...fishkappObject, question: value });
-        setHeight();
       };
 
-      const setHeight = () => {
-        if (textareaRef.current) {
-          textareaRef.current.style.height = "auto";
-          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-        }
-      };
-    
-      useEffect(() => {
-        textareaRef.current?.focus();
-        setHeight();
-      }, [fishkappObject.question]);
-
-
-    
-      const cancelPageClick = () => {
-        props.setEditMode(false);
-      }
+      
 
       const updateCard = () => {
-        if(fishkappObject.question === ""){
+        if(fishkappObject.question === "" || fishkappObject.question === oldValue){
           setErrorText("New text value is required")
         } else {
           props.updateCard(props.id, "front", fishkappObject.question);
@@ -62,7 +47,14 @@ export const FrontCardEdit = (props: CardI) => {
 
       const deleteCard = () => {
         props.deleteCard(props.id);
+        props.setEditMode(false);
       }
+
+      const cancelPageClick = () => {
+        props.setEditMode(false);
+      }
+
+
 
 
     return (
@@ -85,13 +77,13 @@ export const FrontCardEdit = (props: CardI) => {
                     
                     <div className={styles.action_wrapper}>
 
-                    <button onClick={cancelPageClick} className={styles.left_button}>
-                        Cancel
-                    </button>
-                    
-                    <button className={styles.right_button} onClick={updateCard}>Save</button>
+                      <button onClick={cancelPageClick} className={styles.left_button}>
+                          Cancel
+                      </button>
+                      
+                      <button className={styles.right_button} onClick={updateCard}>Save</button>
             
-            </div>
+                     </div>
             </div>
         </div>
         );
