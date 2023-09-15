@@ -26,18 +26,15 @@ export const FrontCardEdit = (props: CardI) => {
         question: props.oldValue,
         answer: "",
       });
-    
-      const oldValue = fishkappObject.question;
 
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
         setfishkappObject({ ...fishkappObject, question: value });
       };
 
-      
-
       const updateCard = () => {
-        if(fishkappObject.question === "" || fishkappObject.question === oldValue){
+        console.log(props.oldValue);
+        if(fishkappObject.question === "" || fishkappObject.question === props.oldValue){
           setErrorText("New text value is required")
         } else {
           props.updateCard(props.id, "front", fishkappObject.question);

@@ -34,10 +34,16 @@ export const TextareaInput = React.forwardRef(
       setHeight();
     }, [props.nextPage]);
 
+    useEffect(() => {
+      textareaRef.current?.focus();
+      setHeight();
+    }, [props.fishkappObject]);
+
     return (
       <textarea
         ref={textareaRef}
         className={styles.input_text}
+        rows={1}
         value={
           props.nextPage
             ? props.fishkappObject.answer
