@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import styles from "./Card.module.css";
 import editIcon from "../../assets/editIcon.svg";
 
@@ -14,35 +14,34 @@ interface CardI {
 }
 
 export const CardSide = (props: CardI) => {
-    const [height, setHeight] = useState<string>("");
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const inputHeight = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      const scrollHeight = event.target.scrollHeight;
-      event.target.style.height = scrollHeight + "px";
-      setHeight(event.target.scrollHeight + "px");
+    const setHeight = () => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "50px";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
     };
-
+  
     useEffect(() => {
-      inputHeight;
-    },[]);
-
+      setHeight();
+    }, [props.value]);
     
 
 
   return (
-           <div className={styles.container}>
-             <button className={styles.corner_button} onClick={props.editPageClick} aria-label={`${props.sideName}EditBtn`}>
+           <div className={styles.container} onClick={props.changePageClick}>
+             <button className={styles.corner_button} onClick={props.editPageClick} aria-label={`${props.sideName}ditBtn`}>
                <img src={editIcon} alt="edit" />
              </button>
           
        
-           <div className={styles.text_wrapper} onClick={props.changePageClick}> 
+           <div className={styles.text_wrapper} > 
                 <textarea
+                  ref={textareaRef}
                   readOnly
                   className={styles.output}
                   value={props.value}
-                  style={{ height: `50px` }}
                 />
               </div>
             </div> 

@@ -30,20 +30,11 @@ export const FrontCardEdit = (props: CardI) => {
       const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
         setfishkappObject({ ...fishkappObject, question: value });
-        if (textareaRef.current) {
-          textareaRef.current.style.height = "auto";
-          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-        }
       };
 
-
-    
-      const cancelPageClick = () => {
-        props.setEditMode(false);
-      }
-
       const updateCard = () => {
-        if(fishkappObject.question === ""){
+        console.log(props.oldValue);
+        if(fishkappObject.question === "" || fishkappObject.question === props.oldValue){
           setErrorText("New text value is required")
         } else {
           props.updateCard(props.id, "front", fishkappObject.question);
@@ -53,7 +44,14 @@ export const FrontCardEdit = (props: CardI) => {
 
       const deleteCard = () => {
         props.deleteCard(props.id);
+        props.setEditMode(false);
       }
+
+      const cancelPageClick = () => {
+        props.setEditMode(false);
+      }
+
+
 
 
     return (
@@ -76,13 +74,13 @@ export const FrontCardEdit = (props: CardI) => {
                     
                     <div className={styles.action_wrapper}>
 
-                    <button onClick={cancelPageClick} className={styles.left_button}>
-                        Cancel
-                    </button>
-                    
-                    <button className={styles.right_button} onClick={updateCard}>Save</button>
+                      <button onClick={cancelPageClick} className={styles.left_button}>
+                          Cancel
+                      </button>
+                      
+                      <button className={styles.right_button} onClick={updateCard}>Save</button>
             
-            </div>
+                     </div>
             </div>
         </div>
         );

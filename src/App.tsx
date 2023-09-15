@@ -37,7 +37,6 @@ export function App() {
         front: card.question,
         back: card.answer
       } 
-      
     setCardsData([...cardsData,newCard]);
 
     setDisplayNewCard(false);
@@ -66,8 +65,10 @@ export function App() {
         }
       } 
     }
+    
     const card = updateCard()
     editCardService(String(card?._id), String(card?.front), String(card?.back));
+    renderCards();
   };
 
   
@@ -82,10 +83,6 @@ export function App() {
   useEffect(() => {
     renderCards();
   }, []);
-
-  useEffect(() => {
-    renderCards();
-  }, [cardsData]);
 
   return (
     <AppLayout>

@@ -39,17 +39,17 @@ export const Card = (props: CardI) => {
     },[props.question, props.answer])
 
   const changePageClick = () => {
-    setNextPage(!nextPage);    
-    textareaRef.current?.focus();
+    setNextPage(!nextPage);   
   };
 
   const editPageClick = () => {
     setEditMode(!editMode);
+    setNextPage(!nextPage); 
   };
     
   return (
     editMode ? (
-      nextPage ? (
+      !nextPage ? (
         <BackCardEdit
           id = {props.id}
           updateCard={props.updateCard}
@@ -69,16 +69,6 @@ export const Card = (props: CardI) => {
     ) : (
       <ReactCardFlip isFlipped={nextPage} containerStyle={{ width: "100%" }}>
             <CardSide
-            sideName="back"
-            sideNameStyle= {styles.back}
-            editMode= {editMode}
-            value= {fishkappObject.answer}
-            changePageClick = {changePageClick}
-            editPageClick = {editPageClick}
-            nextPage = {nextPage}
-            animationState = {animationState}
-            />
-            <CardSide
             sideNameStyle={styles.front}
             sideName="front"
             editMode= {editMode}
@@ -88,5 +78,16 @@ export const Card = (props: CardI) => {
             nextPage = {nextPage}
             animationState = {animationState}
             />
+            <CardSide
+            sideName="back"
+            sideNameStyle= {styles.back}
+            editMode= {editMode}
+            value= {fishkappObject.answer}
+            changePageClick = {changePageClick}
+            editPageClick = {editPageClick}
+            nextPage = {nextPage}
+            animationState = {animationState}
+            />
+            
          </ReactCardFlip>
     ))};

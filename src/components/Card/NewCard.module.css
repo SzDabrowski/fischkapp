@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: white;
     width: 343px;
     height: auto;
@@ -29,8 +30,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap:40px;
     width: 100%;
     
   }
@@ -51,8 +50,10 @@
     align-self: flex-end;
     gap: 10px;
     padding: 0 14px 14px;
+    margin-top: 15px;
   }
   .left_button {
+    font-size: 15px;
     width: 110px;
     height: 38px;
     padding: 10px, 12px, 10px, 12px;
@@ -63,8 +64,12 @@
     word-wrap: break-word;
     font-weight: 500;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; /*Safari*/
+    -moz-user-select: none; /*Firefox*/
   }
   .right_button {
+    font-size: 15px;
     width: 110px;
     height: 38px;
     border: none;
@@ -75,6 +80,9 @@
     word-wrap: break-word;
     font-weight: 500;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; /*Safari*/
+    -moz-user-select: none; /*Firefox*/
   }
 
   .errorText {
