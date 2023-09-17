@@ -67,6 +67,7 @@
     user-select: none;
     -webkit-user-select: none; /*Safari*/
     -moz-user-select: none; /*Firefox*/
+    -webkit-tap-highlight-color: transparent;
   }
   .right_button {
     font-size: 15px;
@@ -83,6 +84,7 @@
     user-select: none;
     -webkit-user-select: none; /*Safari*/
     -moz-user-select: none; /*Firefox*/
+    -webkit-tap-highlight-color: transparent;
   }
 
   .errorText {
